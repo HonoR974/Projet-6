@@ -37,7 +37,7 @@ public class SiteController {
         model.addAttribute("site", siteService.getSiteById(id));
 
        //pour afficher les voies du site
-
+        model.addAttribute("listeVoie", siteService.getVoieBySite(id));
 
         return "site/detail";
     }

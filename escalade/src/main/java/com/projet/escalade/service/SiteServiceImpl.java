@@ -2,6 +2,7 @@ package com.projet.escalade.service;
 
 import com.projet.escalade.entity.Site;
 import com.projet.escalade.entity.Topo;
+import com.projet.escalade.entity.Voie;
 import com.projet.escalade.repository.SiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,5 +73,15 @@ public class SiteServiceImpl  implements  SiteService{
         Site s = siteRepository.findById(id);
 
         return s.getTopo();
+    }
+
+    @Override
+    public List<Voie> getVoieBySite(int id)
+    {
+        Site s = siteRepository.findById(id);
+
+        List<Voie> voies = s.getVoies();
+
+        return voies;
     }
 }

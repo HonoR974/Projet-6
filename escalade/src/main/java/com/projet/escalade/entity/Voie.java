@@ -26,8 +26,6 @@ public class Voie {
     }
 
 
-
-
     public Site getSite() {
         return site;
     }

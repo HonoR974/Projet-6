@@ -2,43 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Detail</title>
+    <title>Edition</title>
     <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link th:href="@{/static/assets/styles/main.css}" rel="stylesheet"/>
 
 </head>
 <body>
 
+
+<!-- Le Corps de la page -->
 <div id="corps" class="container">
 
-    <!-- Affiche le topo -->
     <div class="row">
-        <h1>Veux tu vraiment supprimer ce Site ? </h1>
-    </div>
-    <div class="row">
-
         <div class="col">
-
-            <ul th:utext="${site.region}" >...</ul>
-            <ul th:utext="${site.nom}">...</ul>
-            <ul th:utext="${site.adresse}">...</ul>
+            <h1>Modification de la voie  </h1>
         </div>
     </div>
 
-    <!-- Choix (effacer ou pas) -->
+    <!-- Affichage de la voie  -->
     <div class="row">
         <div class="col">
+            <li th:utext="${voie.nom}">...</li>
+            <li th:utext="${voie.cotation}">...</li>
+        </div>
+    </div>
 
-            <form th:action="@{/site/supprime(id=${site.id})}" th:object="${site}" method="post">
-                <button type="submit" value="submit">Oui </button>
+    <!-- Modification du Topo -->
+    <div class="row">
+        <div class="col">
+            <form action="#" th:action="@{/voie/modif(id=${voie.id})}"
+                  th:object="${voie}" method="post">
+
+                <p>Nom : <input type="text" th:field="*{nom}"></p>
+                <p>Cotation : <input type="text" th:field="*{cotation}" /></p>
+                <p><input type="submit" value="Submit" />
+                    <input type="reset" value="Reset" /></p>
             </form>
-
-        </div>
-
-        <div class="col">
-
-            <button type="button" class="btn btn-light">
-                <a th:href="@{/site/liste}"  >Non </a>
-            </button>
         </div>
     </div>
 
@@ -53,11 +52,11 @@
 
 
 
-
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 
 
 </body>

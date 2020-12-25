@@ -2,46 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Detail</title>
+    <title>Récapitualitif</title>
     <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+
 
 </head>
 <body>
 
 <div id="corps" class="container">
 
-    <!-- Affiche le topo -->
+    <!-- Titre -->
     <div class="row">
-        <h1>Veux tu vraiment supprimer ce Site ? </h1>
-    </div>
-    <div class="row">
-
         <div class="col">
-
-            <ul th:utext="${site.region}" >...</ul>
-            <ul th:utext="${site.nom}">...</ul>
-            <ul th:utext="${site.adresse}">...</ul>
+            <h1>Recap de ta voie   </h1>
         </div>
     </div>
 
-    <!-- Choix (effacer ou pas) -->
+    <!-- Info de la voie -->
     <div class="row">
         <div class="col">
 
-            <form th:action="@{/site/supprime(id=${site.id})}" th:object="${site}" method="post">
-                <button type="submit" value="submit">Oui </button>
-            </form>
+            <div>
 
-        </div>
+                <p th:utext="${voie.nom}">Nom</p>
+                <p th:utext="${voie.cotation}">Cotation</p>
+            </div>
 
-        <div class="col">
-
-            <button type="button" class="btn btn-light">
-                <a th:href="@{/site/liste}"  >Non </a>
-            </button>
         </div>
     </div>
 
+    <!-- btn listeVoie-->
+    <div class="row">
+        <button type="button" class="btn btn-light">
+
+            <a th:href="@{/voie/liste}"  > Liste des voies  </a>
+        </button>
+    </div>
 
 
 
@@ -49,16 +45,10 @@
 
 
 
-
-
-
-
-
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
 
 </body>
 

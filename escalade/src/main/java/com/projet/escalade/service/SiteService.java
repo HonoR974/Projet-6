@@ -2,12 +2,15 @@ package com.projet.escalade.service;
 
 import com.projet.escalade.entity.Site;
 import com.projet.escalade.entity.Topo;
+import com.projet.escalade.entity.Voie;
 
 import java.util.List;
 
 public interface SiteService {
 
+
     List<Site> getSiteList();
+
 
     Site getSiteById(int id);
 
@@ -20,6 +23,8 @@ public interface SiteService {
     void deleteById(int id);
 
     Topo backToTopo();
+
+    List<Voie> getVoieBySite(int id);
 
 
 }

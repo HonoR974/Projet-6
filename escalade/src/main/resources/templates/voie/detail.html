@@ -10,36 +10,44 @@
 
 <div id="corps" class="container">
 
-    <!-- Affiche le topo -->
+    <!-- Titre -->
     <div class="row">
-        <h1>Veux tu vraiment supprimer ce Site ? </h1>
-    </div>
-    <div class="row">
-
-        <div class="col">
-
-            <ul th:utext="${site.region}" >...</ul>
-            <ul th:utext="${site.nom}">...</ul>
-            <ul th:utext="${site.adresse}">...</ul>
-        </div>
+        <h1>Details</h1>
     </div>
 
-    <!-- Choix (effacer ou pas) -->
+    <!-- Info Voie -->
     <div class="row">
-        <div class="col">
-
-            <form th:action="@{/site/supprime(id=${site.id})}" th:object="${site}" method="post">
-                <button type="submit" value="submit">Oui </button>
-            </form>
-
-        </div>
 
         <div class="col">
 
-            <button type="button" class="btn btn-light">
-                <a th:href="@{/site/liste}"  >Non </a>
-            </button>
+            <ul th:utext="${voie.id}" >...</ul>
+            <ul th:utext="${voie.nom}" >...</ul>
+            <ul th:utext="${voie.cotation}" >...</ul>
         </div>
+    </div>
+
+
+    <!-- btn liste voie  -->
+    <div class="row">
+        <button type="button" class="btn btn-light">
+
+            <a th:href="@{/voie/liste}"  >Liste voie  </a>
+        </button>
+    </div>
+
+
+    <!-- btn edition voie -->
+    <div class="row">
+        <button type="button" class="btn btn-light">
+            <a th:href="@{/voie/modif(id=${voie.id})}"  >Edition  </a>
+        </button>
+    </div>
+
+    <!-- btn  delete -->
+    <div class="row">
+        <button type="button" class="btn btn-light">
+            <a th:href="@{/voie/delete(id=${voie.id})}"  >Delete   </a>
+        </button>
     </div>
 
 

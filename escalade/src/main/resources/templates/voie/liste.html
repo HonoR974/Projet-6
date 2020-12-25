@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
 >
 <head>
-    <title>Accueil</title>
+    <title>Liste Voie</title>
     <meta charset="utf-8" />
 
     <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
@@ -11,20 +11,47 @@
 </head>
 <body>
 
-<h1>Bienvenue dans l'index </h1>
+<h1>Bienvenue dans la liste des voie </h1>
 
+<!-- Corps de la page -->
 <div class="container">
+
+    <!-- liste des Voies  -->
     <div class="row">
-        <a th:href="@{topo/liste}">topo </a>
+        <table border="1">
+            <tr>
+                <th>Nom</th>
+                <th>Cotation</th>
+            </tr>
+
+            <!-- pour chaque personne -->
+            <tr th:each ="voie : ${liste}">
+
+                <!-- on affiche le prenom et nom-->
+
+                <td>
+                    <h1 th:utext="${voie.nom}">...</h1>
+                </td>
+
+                <td>
+                    <a th:utext="${voie.cotation}" th:href="@{/voie/detail(id=${voie.id})}">...</a>
+                </td>
+            </tr>
+
+
+
+        </table>
     </div>
 
+
+    <!-- btn Ajout Liste  -->
     <div class="row">
-        <a th:href="@{site/liste}">site </a>
+        <button type="button" class="btn btn-light">
+
+            <a th:href="@{/voie/ajout}"  >Ajout voie   </a>
+        </button>
     </div>
 
-    <div class="row">
-        <a th:href="@{voie/liste}">voie </a>
-    </div>
 
 
 

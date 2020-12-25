@@ -63,11 +63,44 @@
         <div class="col">
             <h1>Partie voie </h1>
         </div>
+        <table border="1">
+
+            <tr>
+                <th>Nom</th>
+                <th>Cotation</th>
+            </tr>
+            <tr th:each="voie : ${listeVoie}">
+                <td>
+                    <a th:utext="${voie.nom}" th:href="@{/voie/detail(id=${voie.id})}">Nom</a>
+                </td>
+                <td>
+                    <p th:utext="${voie.cotation}"></p>
+                </td>
+            </tr>
+        </table>
+
+
+
+
 
     </div>
 
 
-</div>
+    <!-- btn ajout voie -->
+    <div class="row">
+
+
+        <div class="col">
+            <button type="button" class="btn btn-light">
+                <a th:href="@{/voie/ajout}"  >Ajouter une nouvelle voie  </a>
+
+            </button>
+        </div>
+    </div>
+
+
+
+    </div>
 
 
 

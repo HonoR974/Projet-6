@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
 >
 <head>
-    <title>Accueil</title>
+    <title>Ajout Voie </title>
     <meta charset="utf-8" />
 
     <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
@@ -11,22 +11,18 @@
 </head>
 <body>
 
-<h1>Bienvenue dans l'index </h1>
+<h1> on va ajouter une nouvelle voie </h1>
 
 <div class="container">
-    <div class="row">
-        <a th:href="@{topo/liste}">topo </a>
-    </div>
-
-    <div class="row">
-        <a th:href="@{site/liste}">site </a>
-    </div>
-
-    <div class="row">
-        <a th:href="@{voie/liste}">voie </a>
-    </div>
 
 
+    <form action="#" th:action="@{/voie/ajout}"
+          th:object="${voie}" method="post">
+        <p>Nom : <input type="text" th:field="*{nom}"></p>
+        <p>Cotation : <input type="text" th:field="*{cotation}"></p>
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
 
 </div>
 

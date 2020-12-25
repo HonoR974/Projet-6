@@ -12,15 +12,14 @@
 
     <!-- Affiche le topo -->
     <div class="row">
-        <h1>Veux tu vraiment supprimer ce Site ? </h1>
+        <h1>Veux tu vraiment supprimer cette Voie? </h1>
     </div>
     <div class="row">
 
         <div class="col">
 
-            <ul th:utext="${site.region}" >...</ul>
-            <ul th:utext="${site.nom}">...</ul>
-            <ul th:utext="${site.adresse}">...</ul>
+            <ul th:utext="${voie.nom}">...</ul>
+            <ul th:utext="${voie.cotation}">...</ul>
         </div>
     </div>
 
@@ -28,7 +27,9 @@
     <div class="row">
         <div class="col">
 
-            <form th:action="@{/site/supprime(id=${site.id})}" th:object="${site}" method="post">
+            <form th:action="@{/voie/delete(id=${voie.id})}" th:object="${voie}"
+                  method="post">
+
                 <button type="submit" value="submit">Oui </button>
             </form>
 
@@ -37,7 +38,7 @@
         <div class="col">
 
             <button type="button" class="btn btn-light">
-                <a th:href="@{/site/liste}"  >Non </a>
+                <a th:href="@{/voie/liste}"  >Non </a>
             </button>
         </div>
     </div>
