@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Detail</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+
+
+<div id="corps" class="container">
+
+
+
+    <div class="row">
+        <h1>Details</h1>
+    </div>
+
+
+    <!-- Le topo -->
+    <div class="row">
+
+        <div class="col">
+
+            <ul th:utext="${topo.visible}" >...</ul>
+            <ul th:utext="${topo.nom}">...</ul>
+            <ul th:utext="${topo.description}">...</ul>
+            <ul th:utext="${topo.date_creation}">...</ul>
+        </div>
+    </div>
+
+
+
+    <!-- Btn Topo CRUD -->
+    <div class="row">
+        <!-- btn modif -->
+        <div class="col">
+            <a th:href="@{/topo/modif(id=${topo.id})}">Modifier </a>
+        </div>
+
+        <!-- btn liste -->
+        <div class="col">
+            <a th:href="@{/topo/liste}">Liste des topos </a>
+        </div>
+
+        <!-- btn suppr -->
+        <div class="col">
+            <a th:href="@{/topo/supprime(id=${topo.id})}">Supprimer </a>
+        </div>
+    </div>
+
+
+
+    <!-- Les sites du topo -->
+    <div class="row">
+        <table border="1">
+            <tr>
+                <th>Nom</th>
+            </tr>
+
+            <tr th:each = "site :${listeSite}">
+                <td>
+                    <a th:href="@{/site/detail(id=${site.id})}"  th:utext="${site.nom}">Nom</a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- Btn ajout site -->
+    <div class="row">
+        <button type="button" class="btn btn-light">
+            <a th:href="@{/site/ajout}"  >Ajoute un nouveau site  </a>
+
+        </button>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Detail</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+
+<div id="corps" class="container">
+
+    <!-- Affiche le topo -->
+    <div class="row">
+        <h1>Veux tu vraiment supprimer ce Topo ? </h1>
+    </div>
+    <div class="row">
+
+        <div class="col">
+
+
+
+            <ul th:utext="${topo.visible}" >...</ul>
+            <ul th:utext="${topo.nom}">...</ul>
+            <ul th:utext="${topo.description}">...</ul>
+            <ul th:utext="${topo.date_creation}">...</ul>
+        </div>
+    </div>
+
+    <!-- Choix (effacer ou pas) -->
+    <div class="row">
+        <div class="col">
+
+            <form th:action="@{/topo/supprime(id=${topo.id})}" th:object="${topo}" method="post">
+                <button type="submit" value="submit">Oui </button>
+            </form>
+
+        </div>
+
+        <div class="col">
+
+            <button type="button" class="btn btn-light">
+                <a th:href="@{/topo/liste}"  >Non </a>
+            </button>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

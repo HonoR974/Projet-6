@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <title>Accueil</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+
+
+</head>
+<body>
+
+<h1>Bienvenue dans la liste des topos  </h1>
+
+<div class="container">
+
+    <!-- liste des topos -->
+    <div class="row">
+        <table border="1">
+            <tr>
+                <th>Visibilité</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Date Création</th>
+            </tr>
+
+            <!-- pour chaque topo  -->
+            <tr th:each ="topo : ${liste}">
+
+                <!-- on affiche le prenom et nom-->
+
+                <td>
+                    <h1 th:utext="${topo.visible}">Visibilité</h1>
+                </td>
+
+                <td>
+                    <a th:utext="${topo.nom}" th:href="@{/topo/detail(id=${topo.id})}"></a>
+                </td>
+                <td>
+                    <h1 th:utext="${topo.description}">Description</h1>
+                </td>
+
+                <td>
+                    <h1 th:utext="${topo.date_creation}">Date</h1>
+                </td>
+
+
+
+            </tr>
+        </table>
+    </div>
+
+
+    <!-- bouton ajout Topo -->
+    <div class="row">
+        <button type="button" class="btn btn-light">
+            <a th:href="@{/topo/ajout}"  >Ajoute un nouveau topo  </a>
+
+        </button>
+    </div>
+</div>
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>
