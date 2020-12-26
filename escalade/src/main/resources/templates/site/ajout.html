@@ -16,7 +16,7 @@
 <div class="container">
 
 
-    <form action="#" th:action="@{/site/ajout}"
+    <form action="#" th:action="@{/site/ajout(id=${topo.id})}"
           th:object="${site}" method="post">
         <p>Region  : <input type="text" th:field="*{region}"/></p>
         <p>Nom : <input type="text" th:field="*{nom}"></p>

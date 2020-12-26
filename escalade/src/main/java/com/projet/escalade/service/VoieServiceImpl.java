@@ -1,5 +1,6 @@
 package com.projet.escalade.service;
 
+import com.projet.escalade.entity.Site;
 import com.projet.escalade.entity.Voie;
 import com.projet.escalade.repository.VoieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,14 @@ public class VoieServiceImpl implements VoieService{
     public void deleteById(int id)
     {
         voieRepository.deleteById(id);
+    }
+
+
+    @Override
+    public Site backToSite()
+    {
+        int id = 1;
+        Voie v = voieRepository.findById(id);
+        return v.getSite();
     }
 }

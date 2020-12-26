@@ -55,6 +55,7 @@ public class Site {
         this.region = r;
         this.nom = n;
         this.adresse = a;
+
     }
 
     public int getId() {

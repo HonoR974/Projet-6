@@ -21,6 +21,8 @@ public class VoieController {
     public String liste(Model model)
     {
         model.addAttribute("liste", voieService.getListVoie());
+
+        model.addAttribute("site", voieService.backToSite());
         return "voie/liste";
     }
 
@@ -89,5 +91,9 @@ public class VoieController {
         model.addAttribute("liste", voieService.getListVoie());
         return "voie/liste";
     }
+
+
+
+
 
 }

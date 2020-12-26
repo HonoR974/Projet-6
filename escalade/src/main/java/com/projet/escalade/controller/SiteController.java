@@ -14,6 +14,7 @@ public class SiteController {
     @Autowired
     private SiteService siteService;
 
+    private int id_topo;
 
 
 
@@ -21,9 +22,9 @@ public class SiteController {
     @RequestMapping(value = "/site/liste", method = RequestMethod.GET)
     public String siteListe(Model model)
     {
-        model.addAttribute("liste", siteService.getSiteList());
+        model.addAttribute("liste", siteService.getSiteListByIdTop( id_topo));
 
-        model.addAttribute("topo", siteService.backToTopo());
+        model.addAttribute("topo", siteService.getTopoById(id_topo));
 
         return "site/liste";
     }
@@ -36,6 +37,11 @@ public class SiteController {
         //pour afficher les infos du site
         model.addAttribute("site", siteService.getSiteById(id));
 
+        //je veux que la variable id_topo soit
+        // la meme que celle dans le site de detail
+        //on accede a detail par topo
+        id_topo = siteService.getIdTopoByIdSite(id);
+
        //pour afficher les voies du site
         model.addAttribute("listeVoie", siteService.getVoieBySite(id));
 
@@ -44,23 +50,29 @@ public class SiteController {
 
 
 
-    //----------- Ajout -----------//
+    //----------- Ajout  -----------//
     @RequestMapping(value = "/site/ajout", method = RequestMethod.GET)
-    public String ajoutGet(Model model)
+    public String ajoutGet(@RequestParam(value = "id")int id,  Model model)
     {
-        model.addAttribute("site", siteService.createSite() );
+        model.addAttribute("site", siteService.createSite());
 
+        //on donne la valeur a chaque site l'id de leur topo
+        id_topo = id;
+
+        //le topo qui ajoute ce site
+        model.addAttribute("topo", siteService.getTopoById(id));
         return "site/ajout";
     }
 
     @RequestMapping(value = "/site/ajout", method = RequestMethod.POST)
-    public String ajoutPost(@RequestParam(value = "region")String r,
+    public String ajoutPost(@RequestParam("id")int id_topo,
+            @RequestParam(value = "region")String r,
             @RequestParam(value = "nom")String n,
             @RequestParam(value = "adresse")String a,
             Model model)
     {
 
-        model.addAttribute("site", siteService.saveSite(r,n,a));
+        model.addAttribute("site", siteService.saveSite(r,n,a,id_topo));
         return "site/recapAdd";
 
     }
@@ -100,9 +112,10 @@ public class SiteController {
     @RequestMapping(value = "/site/supprime", method = RequestMethod.POST)
     public String supprimePost(@RequestParam(value = "id")int id, Model model)
     {
+        id_topo = siteService.getIdTopoByIdSite(id);
 
         siteService.deleteById(id);
-        model.addAttribute("liste", siteService.getSiteList());
+        model.addAttribute("liste", siteService.getSiteListByIdTop(id_topo));
         return "site/liste";
     }
 

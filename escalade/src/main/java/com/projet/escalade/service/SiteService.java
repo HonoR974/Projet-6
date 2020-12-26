@@ -9,22 +9,28 @@ import java.util.List;
 public interface SiteService {
 
 
-    List<Site> getSiteList();
+    List<Site> getSiteListByIdTop(int id_topo);
 
+    List<Voie> getVoieBySite(int id);
 
     Site getSiteById(int id);
 
     Site createSite();
 
-    Site saveSite(String r, String n, String a);
+    Site saveSite(String r, String n, String a, int id_topo);
 
     Site updateSite(int id, String r, String n,String a);
 
+    Topo getTopoById(int id);
+
+
+    int getIdTopoByIdSite (int id);
+
     void deleteById(int id);
 
-    Topo backToTopo();
 
-    List<Voie> getVoieBySite(int id);
+
+
 
 
 }
