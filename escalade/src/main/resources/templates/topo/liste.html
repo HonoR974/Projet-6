@@ -2,64 +2,115 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
 >
 <head>
-    <title>Accueil</title>
+    <title>Liste Topo</title>
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
 
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link th:href="@{/css/main.css}"  rel="stylesheet" />
 
 </head>
 <body>
 
-<h1>Bienvenue dans la liste des topos  </h1>
+    <!-- menu -->
+    <header>
 
-<div class="container">
+        <!-- Menu -->
+        <div class="row">
 
-    <!-- liste des topos -->
-    <div class="row">
-        <table border="1">
-            <tr>
-                <th>Visibilité</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Date Création</th>
-            </tr>
+            <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
 
-            <!-- pour chaque topo  -->
-            <tr th:each ="topo : ${liste}">
+                <!-- Le logo du menu -->
+                <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
 
-                <!-- on affiche le prenom et nom-->
+                <!-- btn bascule de navigation -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                <td>
-                    <h1 th:utext="${topo.visible}">Visibilité</h1>
-                </td>
-
-                <td>
-                    <a th:utext="${topo.nom}" th:href="@{/topo/detail(id=${topo.id})}"></a>
-                </td>
-                <td>
-                    <h1 th:utext="${topo.description}">Description</h1>
-                </td>
-
-                <td>
-                    <h1 th:utext="${topo.date_creation}">Date</h1>
-                </td>
+                <!-- liens du menu  -->
+                <div id="navbarContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/}"> Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
+                        </li>
+                    </ul>
+                </div>
 
 
+            </nav>
+        </div>
+    </header>
 
-            </tr>
-        </table>
+
+    <div class="container">
+
+
+        <!-- Partie hero -->
+        <div class="row">
+
+            <div class="col-12 jumbotron" >
+                <h1> Mes Topos  </h1>
+            </div>
+
+        </div>
+
+
+        <!-- liste des topos -->
+        <div class="row">
+            <table border="1">
+                <tr>
+                    <th>Visibilité</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Date Création</th>
+                </tr>
+
+                <!-- pour chaque topo  -->
+                <tr th:each ="topo : ${liste}">
+
+                    <!-- on affiche le prenom et nom-->
+
+                    <td>
+                        <h1 th:utext="${topo.visible}">Visibilité</h1>
+                    </td>
+
+                    <td>
+                        <a th:utext="${topo.nom}" th:href="@{/topo/detail(id=${topo.id})}"></a>
+                    </td>
+                    <td>
+                        <h1 th:utext="${topo.description}">Description</h1>
+                    </td>
+
+                    <td>
+                        <h1 th:utext="${topo.date_creation}">Date</h1>
+                    </td>
+
+
+
+                </tr>
+            </table>
+        </div>
+
+
+        <!-- bouton ajout Topo -->
+        <div class="row">
+            <button type="button" class="btn btn-light">
+                <a th:href="@{/topo/ajout}"  >Ajoute un nouveau topo  </a>
+
+            </button>
+        </div>
+
+
     </div>
 
-
-    <!-- bouton ajout Topo -->
-    <div class="row">
-        <button type="button" class="btn btn-light">
-            <a th:href="@{/topo/ajout}"  >Ajoute un nouveau topo  </a>
-
-        </button>
+    <!-- footer-->
+    <div class="footer">
+        <p>footer</p>
     </div>
-</div>
 
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -21,8 +21,7 @@ public interface SiteService {
 
     Site updateSite(int id, String r, String n,String a);
 
-    Topo getTopoById(int id);
-
+    Topo getTopoByIdTopo(int id);
 
     int getIdTopoByIdSite (int id);
 

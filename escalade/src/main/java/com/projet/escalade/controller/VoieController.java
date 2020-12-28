@@ -1,5 +1,6 @@
 package com.projet.escalade.controller;
 
+import com.projet.escalade.entity.Voie;
 import com.projet.escalade.service.VoieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,51 +9,66 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 
 @Controller
 public class VoieController {
 
     @Autowired
     private VoieService voieService;
-    
+
 
     //-------------- Liste -------------//
     @RequestMapping(value = "/voie/liste", method = RequestMethod.GET)
-    public String liste(Model model)
+    public String liste(@RequestParam(value = "id")int id,
+            Model model)
     {
-        model.addAttribute("liste", voieService.getListVoie());
+        model.addAttribute("liste", voieService.getListVoieByIdSite(id));
 
-        model.addAttribute("site", voieService.backToSite());
+        //btn retour site
+        model.addAttribute("site", voieService.getSiteByIdSite(id));
         return "voie/liste";
     }
 
 
     //-----------Detail -----------//
     @RequestMapping(value = "/voie/detail", method = RequestMethod.GET)
-    public String detail(@RequestParam(value = "id")int id, Model model)
+    public String detail(@RequestParam(value = "id")int id , Model model)
     {
         model.addAttribute("voie", voieService.getVoieById(id));
-
+        model.addAttribute("site", voieService.getSiteByIdVoie(id));
         return "voie/detail";
     }
 
 
     //----------------- Ajout -------------//
     @RequestMapping(value = "/voie/ajout", method = RequestMethod.GET)
-    public String ajoutGet(Model model)
+    public String ajoutGet(@RequestParam(value = "id")int id ,
+            Model model)
     {
-        model.addAttribute("voie", voieService.createVoie());
+
+        //je creer une voie
+        model.addAttribute("voie", voieService.createVoie(id));
+        //le site de la voie
+        model.addAttribute("site", voieService.getSiteByIdSite(id));
+
         return "voie/ajout";
     }
 
     @RequestMapping(value = "/voie/ajout", method = RequestMethod.POST)
-    public String ajoutPost(@RequestParam(value = "nom")String n,
+    public String ajoutPost(@RequestParam(value = "id")int id_site,
+                            @RequestParam(value = "nom")String n,
                             @RequestParam(value = "cotation")String c,
             Model model)
     {
-        model.addAttribute("voie", voieService.saveVoie(n,c));
+        model.addAttribute("voie", voieService.saveVoie(n,c, id_site));
+
+        model.addAttribute("site", voieService.getSiteByIdSite(id_site));
         return "voie/recapAdd";
     }
+
+
 
     //--------------------- Update ----------------//
     @RequestMapping(value = "/voie/modif", method = RequestMethod.GET)
@@ -70,7 +86,9 @@ public class VoieController {
                            Model model)
     {
 
-        model.addAttribute("voie", voieService.updateVoie(id,n,c));
+        model.addAttribute("voie", voieService.updateVoie(id,n,c));;
+
+        model.addAttribute("site", voieService.getSiteByIdVoie(id));
         return "voie/detail";
     }
 
@@ -87,8 +105,12 @@ public class VoieController {
     @RequestMapping(value = "/voie/delete", method = RequestMethod.POST)
     public String deletePost(@RequestParam(value = "id")int id, Model model)
     {
+        int id_site = voieService.getIdSiteByIdVoie(id);
+
         voieService.deleteById(id);
-        model.addAttribute("liste", voieService.getListVoie());
+        model.addAttribute("liste", voieService.getListVoieByIdSite(id_site));
+        model.addAttribute("site", voieService.getSiteByIdSite(id_site));
+
         return "voie/liste";
     }
 

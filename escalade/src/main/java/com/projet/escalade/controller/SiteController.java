@@ -24,7 +24,7 @@ public class SiteController {
     {
         model.addAttribute("liste", siteService.getSiteListByIdTop( id_topo));
 
-        model.addAttribute("topo", siteService.getTopoById(id_topo));
+        model.addAttribute("topo", siteService.getTopoByIdTopo(id_topo));
 
         return "site/liste";
     }
@@ -60,7 +60,7 @@ public class SiteController {
         id_topo = id;
 
         //le topo qui ajoute ce site
-        model.addAttribute("topo", siteService.getTopoById(id));
+        model.addAttribute("topo", siteService.getTopoByIdTopo(id));
         return "site/ajout";
     }
 
@@ -116,6 +116,7 @@ public class SiteController {
 
         siteService.deleteById(id);
         model.addAttribute("liste", siteService.getSiteListByIdTop(id_topo));
+        model.addAttribute("topo", siteService.getTopoByIdTopo(id_topo));
         return "site/liste";
     }
 

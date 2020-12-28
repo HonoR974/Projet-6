@@ -3,45 +3,110 @@
 <head>
     <meta charset="UTF-8" />
     <title>Edition</title>
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link th:href="@{/static/assets/styles/main.css}" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
 
 </head>
 <body>
+
+<!-- menu -->
+<header>
+
+    <!-- Menu -->
+    <div class="row">
+
+        <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+
+            <!-- Le logo du menu -->
+            <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
+
+            <!-- btn bascule de navigation -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- liens du menu  -->
+            <div id="navbarContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}"> Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </nav>
+    </div>
+</header>
 
 
 <!-- Le Corps de la page -->
 <div id="corps" class="container">
 
+    <!-- Titre -->
     <div class="row">
-        <div class="col">
-            <h1>Modification du Topo </h1>
+
+        <div class="col-12 jumbotron" >
+            <h1  style="text-align: center"> Modificatio du topo  </h1>
         </div>
+
     </div>
+
 
     <!-- Affichage du topo -->
-    <div class="row">
-        <div class="col">
-            <li th:utext="${topo.visible}" >...</li>
-            <li th:utext="${topo.nom}">...</li>
-            <li th:utext="${topo.description}">...</li>
-            <li th:utext="${topo.date_creation}">...</li>
-        </div>
+
+    <div class="detail">
+        <table border="1">
+            <tr>
+                <th>Visibilité</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Date Création</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <ul th:utext="${topo.visible}" >...</ul>
+                </td>
+                <td>
+                    <ul th:utext="${topo.nom}">...</ul>
+                </td>
+
+                <td>
+                    <ul th:utext="${topo.description}">...</ul>
+                </td>
+                <td>
+
+                    <ul th:utext="${topo.date_creation}">...</ul>
+                </td>
+            </tr>
+        </table>
+
+
     </div>
 
-    <!-- Modification du Topo -->
-    <div class="row">
-        <div class="col">
-            <form action="#" th:action="@{/topo/modif(id=${topo.id})}"
-                  th:object="${topo}" method="post">
 
-                <p>Visibilité : <input type="checkbox" th:field="*{visible}" /></p>
-                <p>Nom : <input type="text" th:field="*{nom}"></p>
-                <p>Description : <input type="text" th:field="*{description}" /></p>
-                <p><input type="submit" value="Submit" />
-                    <input type="reset" value="Reset" /></p>
-            </form>
+    <!-- Modification du Topo -->
+
+    <div class="detail">
+        <div class="row">
+            <div class="col">
+                <form action="#" th:action="@{/topo/modif(id=${topo.id})}"
+                      th:object="${topo}" method="post">
+
+                    <p>Visibilité : <input type="checkbox" th:field="*{visible}" /></p>
+                    <p>Nom : <input type="text" th:field="*{nom}"></p>
+                    <p>Description : <input type="text" th:field="*{description}" /></p>
+                    <p><input type="submit" value="Submit" />
+                        <input type="reset" value="Reset" /></p>
+                </form>
+            </div>
         </div>
+
     </div>
 
 
@@ -50,6 +115,11 @@
 </div>
 
 
+
+<!-- footer-->
+<div class="footer">
+    <p>footer</p>
+</div>
 
 
 

@@ -3,91 +3,186 @@
 <head>
     <meta charset="UTF-8" />
     <title>Detail</title>
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
+        <!-- menu -->
+        <header>
+
+            <!-- Menu -->
+            <div class="row">
+
+                <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+
+                    <!-- Le logo du menu -->
+                    <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
+
+                    <!-- btn bascule de navigation -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- liens du menu  -->
+                    <div id="navbarContent" class="collapse navbar-collapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" th:href="@{/}"> Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
+                            </li>
+                        </ul>
+                    </div>
 
 
-<div id="corps" class="container">
+                </nav>
+            </div>
+        </header>
 
 
 
-    <div class="row">
-        <h1>Details</h1>
-    </div>
+        <div class="container">
 
 
-    <!-- Le topo -->
-    <div class="row">
+            <!-- Titre -->
+            <div class="row">
 
-        <div class="col">
+                <div class="col-12 jumbotron" >
+                    <h1 th:utext="${topo.nom}" style="text-align: center">  </h1>
+                </div>
 
-            <ul th:utext="${topo.visible}" >...</ul>
-            <ul th:utext="${topo.nom}">...</ul>
-            <ul th:utext="${topo.description}">...</ul>
-            <ul th:utext="${topo.date_creation}">...</ul>
+            </div>
+
+            <!-- Topo detail -->
+             <div class="detail">
+
+                    <!-- Le topo -->
+                    <div class="row" >
+
+                        <table border="1">
+                            <tr>
+                                <th>Visibilité</th>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Date Création</th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <ul th:utext="${topo.visible}" >...</ul>
+                                </td>
+                                <td>
+                                    <ul th:utext="${topo.nom}">...</ul>
+                                </td>
+
+                                <td>
+                                    <ul th:utext="${topo.description}">...</ul>
+                                </td>
+                                <td>
+
+                                    <ul th:utext="${topo.date_creation}">...</ul>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+
+                    <!-- Btn Topo CRUD -->
+                    <div class="row">
+
+                        <!-- btn modif -->
+                        <div class="col">
+                            <button type="button" class="btn btn-light">
+                                <a th:href="@{/topo/modif(id=${topo.id})}"  >Modification  </a>
+                            </button>
+                        </div>
+
+                        <!-- btn liste -->
+                        <div class="col">
+                            <button type="button" class="btn btn-light">
+                                <a th:href="@{/topo/liste}"  >Liste des topos  </a>
+                            </button>
+                        </div>
+
+
+                        <!-- btn suppr -->
+                        <div class="col">
+                            <button type="button" class="btn btn-light">
+                                <a th:href="@{/topo/supprime(id=${topo.id})}"  >Supprimer  </a>
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+
+            <!-- Partie Site -->
+            <div class="row">
+
+                <div class="col-12 jumbotron" >
+                    <h1 style="text-align: center"> les sites   </h1>
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+                <!-- Les sites du topo -->
+                <div class="row">
+                    <table border="1">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Region</th>
+                            <th>Adresse</th>
+                        </tr>
+
+                        <tr th:each = "site :${listeSite}">
+                            <td>
+                                <a th:href="@{/site/detail(id=${site.id})}"  th:utext="${site.nom}">Nom</a>
+                            </td>
+                            <td>
+                                <ul th:utext="${site.region}"></ul>
+                            </td>
+                            <td>
+                                <ul th:utext="${site.adresse}"></ul>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <!-- Btn ajout site -->
+                <div class="row">
+                    <button type="button" class="btn btn-light">
+                        <a th:href="@{/site/ajout(id=${topo.id})}"  >Ajout SIte  </a>
+
+                    </button>
+                </div>
+            </div>
+
+
+
+
+            </div>
+
+        <!-- footer-->
+        <div class="footer">
+            <p>footer</p>
         </div>
-    </div>
-
-
-
-    <!-- Btn Topo CRUD -->
-    <div class="row">
-        <!-- btn modif -->
-        <div class="col">
-            <a th:href="@{/topo/modif(id=${topo.id})}">Modifier </a>
-        </div>
-
-        <!-- btn liste -->
-        <div class="col">
-            <a th:href="@{/topo/liste}">Liste des topos </a>
-        </div>
-
-        <!-- btn suppr -->
-        <div class="col">
-            <a th:href="@{/topo/supprime(id=${topo.id})}">Supprimer </a>
-        </div>
-    </div>
-
-
-
-    <!-- Les sites du topo -->
-    <div class="row">
-        <table border="1">
-            <tr>
-                <th>Nom</th>
-            </tr>
-
-            <tr th:each = "site :${listeSite}">
-                <td>
-                    <a th:href="@{/site/detail(id=${site.id})}"  th:utext="${site.nom}">Nom</a>
-                </td>
-            </tr>
-        </table>
-
-    </div>
-
-    <!-- Btn ajout site -->
-    <div class="row">
-        <button type="button" class="btn btn-light">
-            <a th:href="@{/site/ajout(id=${topo.id})}"  >Ajoute un nouveau site  </a>
-
-        </button>
-    </div>
-
-
-
-</div>
 
 
 
 
 
 
-
-
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

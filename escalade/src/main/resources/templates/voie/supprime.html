@@ -3,25 +3,71 @@
 <head>
     <meta charset="UTF-8" />
     <title>Detail</title>
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
 
-<div id="corps" class="container">
+<!-- menu -->
+<header>
 
-    <!-- Affiche le topo -->
+    <!-- Menu -->
     <div class="row">
-        <h1>Veux tu vraiment supprimer cette Voie? </h1>
+
+        <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+
+            <!-- Le logo du menu -->
+            <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
+
+            <!-- btn bascule de navigation -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- liens du menu  -->
+            <div id="navbarContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}"> Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </nav>
     </div>
+</header>
+
+
+
+
+<div  class="container">
+
+
+    <!-- Partie titre -->
     <div class="row">
 
-        <div class="col">
+        <div class="col-12 jumbotron" >
+            <h1>Veux tu supprimer cette voie ?   </h1>
+        </div>
 
-            <ul th:utext="${voie.nom}">...</ul>
-            <ul th:utext="${voie.cotation}">...</ul>
+    </div>
+
+    <!-- voie info -->
+    <div class="detail">
+        <div class="row">
+
+            <div class="col">
+
+                <ul th:utext="${voie.nom}">...</ul>
+                <ul th:utext="${voie.cotation}">...</ul>
+            </div>
         </div>
     </div>
+
 
     <!-- Choix (effacer ou pas) -->
     <div class="row">
@@ -50,6 +96,10 @@
 
 
 
+<!-- footer-->
+<div class="footer">
+    <p>footer</p>
+</div>
 
 
 

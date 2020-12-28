@@ -2,6 +2,7 @@ package com.projet.escalade.service;
 
 import com.projet.escalade.entity.Site;
 import com.projet.escalade.entity.Voie;
+import com.projet.escalade.repository.SiteRepository;
 import com.projet.escalade.repository.VoieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,11 @@ public class VoieServiceImpl implements VoieService{
     @Autowired
     private VoieRepository voieRepository;
 
+    @Autowired
+    private SiteRepository siteRepository;
+
+    private List<Voie> voies;
+
     @Override
     public Voie getVoieById(int id)
     {
@@ -22,27 +28,27 @@ public class VoieServiceImpl implements VoieService{
         return voie;
     }
 
-    @Override
-    public Voie createVoie()
-    {
-        Voie v = new Voie();
-        return v;
-    }
 
     @Override
-    public Voie saveVoie(String n, String c)
+    public Voie saveVoie(String n, String c,int id_site)
     {
+        Site s = siteRepository.findById(id_site);
         Voie v = new Voie();
         v.setNom(n);
         v.setCotation(c);
+        v.setSite(s);
         voieRepository.save(v);
         return v;
     }
 
     @Override
-    public List<Voie> getListVoie()
+    public List<Voie> getListVoieByIdSite(int id_site)
     {
-        return voieRepository.findAll();
+        Site s = siteRepository.findById(id_site);
+         voies = voieRepository.findBySite(s);
+
+        //return voieRepository.findBySite(s);
+        return voies;
     }
 
 
@@ -53,7 +59,16 @@ public class VoieServiceImpl implements VoieService{
         v.setNom(n);
         v.setCotation(c);
 
+        System.out.println("\n \n " + v.toString() + "\n \n ");
+
         voieRepository.save(v);
+        return v;
+    }
+    @Override
+   public Voie createVoie(int id_site )
+    {
+        Voie v = new Voie();
+        v.setSite(siteRepository.findById(id_site));
         return v;
     }
 
@@ -65,10 +80,27 @@ public class VoieServiceImpl implements VoieService{
 
 
     @Override
-    public Site backToSite()
+    public Site getSiteByIdVoie(int id)
     {
-        int id = 1;
         Voie v = voieRepository.findById(id);
-        return v.getSite();
+        Site s = v.getSite();
+        return s;
     }
+
+
+   public  Site getSiteByIdSite(int id)
+   {
+       return  siteRepository.findById(id);
+
+   }
+
+
+   @Override
+    public int  getIdSiteByIdVoie(int id)
+   {
+       Voie v = voieRepository.findById(id);
+       Site s = v.getSite();
+       int a = s.getId();
+       return a;
+   }
 }

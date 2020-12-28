@@ -26,6 +26,19 @@ public class Topo {
     @Column(name = "date_creation")
     private Date date_creation;
 
+
+    @Override
+    public String toString() {
+        return "Topo{" +
+                "id=" + id +
+                ", visible=" + visible +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", date_creation=" + date_creation +
+                ", sites=" + sites +
+                '}';
+    }
+
     @OneToMany(mappedBy = "topo")
     private List<Site> sites;
 

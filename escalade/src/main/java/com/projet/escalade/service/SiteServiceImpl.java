@@ -53,7 +53,7 @@ public class SiteServiceImpl  implements  SiteService{
 
     //en fournissant l'id du topo
     @Override
-    public Topo getTopoById(int id)
+    public Topo getTopoByIdTopo(int id)
     {
         Topo t = topoRepository.findById(id);
 

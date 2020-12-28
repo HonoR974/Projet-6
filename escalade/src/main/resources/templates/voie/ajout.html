@@ -5,27 +5,78 @@
     <title>Ajout Voie </title>
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
 </head>
 <body>
 
-<h1> on va ajouter une nouvelle voie </h1>
+<!-- menu -->
+<header>
+
+    <!-- Menu -->
+    <div class="row">
+
+        <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+
+            <!-- Le logo du menu -->
+            <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
+
+            <!-- btn bascule de navigation -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- liens du menu  -->
+            <div id="navbarContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}"> Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </nav>
+    </div>
+</header>
+
+
 
 <div class="container">
 
 
-    <form action="#" th:action="@{/voie/ajout}"
-          th:object="${voie}" method="post">
-        <p>Nom : <input type="text" th:field="*{nom}"></p>
-        <p>Cotation : <input type="text" th:field="*{cotation}"></p>
+    <!-- Partie titre -->
+    <div class="row">
 
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+        <div class="col-12 jumbotron" >
+            <h1>Ajout d'une nouvelle voie </h1>
+        </div>
+
+    </div>
+
+    <div class="detail">
+        <form action="#" th:action="@{/voie/ajout(id=${site.id})}"
+              th:object="${voie}" method="post">
+            <p>Nom : <input type="text" th:field="*{nom}"></p>
+            <p>Cotation : <input type="text" th:field="*{cotation}"></p>
+
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </div>
+
+
 
 </div>
 
+
+<!-- footer-->
+<div class="footer">
+    <p>footer</p>
+</div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

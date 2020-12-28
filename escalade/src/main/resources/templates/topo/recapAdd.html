@@ -3,45 +3,104 @@
 <head>
     <meta charset="UTF-8" />
     <title>Récapitualitif</title>
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
 </head>
 <body>
 
-<div id="corps" class="container">
-    <div class="row">
-        <div class="col">
-            <h1>Recap de ton nouveau Topo   </h1>
-        </div>
-    </div>
+<!-- menu -->
+<header>
 
+    <!-- Menu -->
     <div class="row">
-        <div class="col">
 
-            <div>
-                <p th:utext="${topo.visible}">Visibilité </p>
-                <p th:utext="${topo.nom}">Nom</p>
-                <p th:utext="${topo.description}">Description</p>
-                <p th:utext="${topo.date_creation}">Date</p>
+        <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+
+            <!-- Le logo du menu -->
+            <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
+
+            <!-- btn bascule de navigation -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- liens du menu  -->
+            <div id="navbarContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}"> Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
+                    </li>
+                </ul>
             </div>
 
-        </div>
-    </div>
 
+        </nav>
+    </div>
+</header>
+
+
+<div class="container">
+
+    <!-- Titre -->
     <div class="row">
-        <div class="col">
-            <a th:href="@{/topo/ajout}">Créer un nouveau Topo </a>
 
-
+        <div class="col-12 jumbotron" >
+            <h1  style="text-align: center"> Voici le nouveau Topo  </h1>
         </div>
 
+    </div>
+
+    <!-- Info nouveau topo -->
+    <div class="detail">
         <div class="row">
-            <a th:href="@{/topo/liste}">Retourne voir la liste</a>
+            <div class="col">
+
+                <div>
+                    <p th:utext="${topo.visible}">Visibilité </p>
+                    <p th:utext="${topo.nom}">Nom</p>
+                    <p th:utext="${topo.description}">Description</p>
+                    <p th:utext="${topo.date_creation}">Date</p>
+                </div>
+
+            </div>
         </div>
     </div>
+
+
+    <!-- BTN -->
+    <div class="row">
+
+        <!-- btn topo ajout -->
+        <div class="col">
+            <button type="button" class="btn btn-light">
+                <a th:href="@{topo/ajout}"  >Créer un nouveau topo </a>
+
+            </button>
+        </div>
+
+
+    <!-- btn liste topo -->
+
+        <div class="col">
+            <button type="button" class="btn btn-light">
+                <a th:href="@{/topo/liste}"  >Retourne voir la liste  </a>
+
+            </button>
+        </div>
+    </div>
+
+
 </div>
 
+
+<!-- footer-->
+<div class="footer">
+    <p>footer</p>
+</div>
 
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -1,0 +1,35 @@
+.footer
+{
+
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+}
+
+.container{
+    height: 100%;
+    background-color: rgba(219,115,246,0.3);
+
+}
+
+.corps
+{
+    padding-right: 15px;
+    padding-left: 15px;
+    height: 100vh;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(179,246,115,0.3);
+}
+
+.detail
+{
+    padding : 40px;
+    align-content: center;
+}
