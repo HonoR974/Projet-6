@@ -13,10 +13,10 @@
             <!-- Menu -->
             <div class="row">
 
-                <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+                <nav class=" col navbar navbar-expand-lg navbar-dark bg-dark">
 
                     <!-- Le logo du menu -->
-                    <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
+                    <a class="navbar-brand" th:href="@{/espace/accueil}">Mon Espace Perso  </a>
 
                     <!-- btn bascule de navigation -->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
@@ -27,10 +27,10 @@
                     <div id="navbarContent" class="collapse navbar-collapse">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link" th:href="@{/}"> Accueil</a>
+                                <a class="nav-link" th:href="@{/espace/accueil}"> Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
+                                <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
                             </li>
                         </ul>
                     </div>

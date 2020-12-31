@@ -2,6 +2,7 @@ package com.projet.escalade.service;
 
 import com.projet.escalade.entity.Site;
 import com.projet.escalade.entity.Topo;
+import com.projet.escalade.entity.User;
 
 import java.util.Date;
 import java.util.List;
@@ -9,11 +10,13 @@ import java.util.List;
 public interface TopoService {
 
 
-     List<Topo> getTopoList();
+     List<Topo> getTopoListByIdUser(int id_user);
 
-     Topo createTopo();
+     List<Topo> getTopoListByVisible( );
 
-     Topo saveTopo(boolean visible, String nom, String descritpion, Date dateCreation);
+     Topo createTopo(int id_user);
+
+     Topo saveTopo(int id, boolean visible, String nom, String descritpion, Date dateCreation);
 
      Topo getTopoByID(int id);
 
@@ -22,5 +25,7 @@ public interface TopoService {
      void deleteById(int id);
 
      List<Site> sendSiteByTopo(int id);
+
+     User getUserById(int id);
 
 }

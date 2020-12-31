@@ -2,7 +2,9 @@ package com.projet.escalade.service;
 
 import com.projet.escalade.entity.Site;
 import com.projet.escalade.entity.Topo;
+import com.projet.escalade.entity.User;
 import com.projet.escalade.repository.TopoRepository;
+import com.projet.escalade.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,26 +19,41 @@ public class TopoServiceImpl  implements TopoService{
     @Autowired
     private TopoRepository topoRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private List<Topo> topoList;
 
     @Override
-    public List<Topo> getTopoList()
+    public List<Topo> getTopoListByIdUser(int id_user)
     {
-        topoList = topoRepository.findAll();
+        User u = userRepository.findById(id_user);
+
+        topoList = topoRepository.findByUser(u);
         return topoList;
     }
 
     @Override
-    public Topo createTopo( )
+    public List<Topo> getTopoListByVisible()
+    {
+        List<Topo> topos =  topoRepository.findTopoByVisible(true);
+        return topos;
+    }
+
+    @Override
+    public Topo createTopo( int id_user)
     {
         Topo t = new Topo();
+        User u = userRepository.findById(id_user);
+        t.setUser(u);
+        topoRepository.save(t);
         return  t ;
     }
 
     @Override
-    public Topo saveTopo(boolean v, String n, String des, Date date)
+    public Topo saveTopo(int id, boolean v, String n, String des, Date date)
     {
-        Topo t = new Topo();
+        Topo t = topoRepository.findById(id);
         t.setVisible(v);
         t.setNom(n);
         t.setDescription(des);
@@ -81,5 +98,12 @@ public class TopoServiceImpl  implements TopoService{
 
     }
 
+    @Override
+    public User getUserById(int id)
+    {
+        Topo t = topoRepository.findById(id);
+        User u = t.getUser();
+        return u;
+    }
 
 }

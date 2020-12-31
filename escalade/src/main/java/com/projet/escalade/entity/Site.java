@@ -28,8 +28,21 @@ public class Site {
     private List<Voie> voies;
 
 
+    @OneToMany(mappedBy = "site")
+    private List<Commentaire> commentaires;
 
 
+
+
+    //----------GET & SET ------------//
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
 
 
     public List<Voie> getVoies() {

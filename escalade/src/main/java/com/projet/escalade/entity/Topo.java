@@ -23,32 +23,17 @@ public class Topo {
     @Column(name = "description")
     private String description;
 
+
     @Column(name = "date_creation")
     private Date date_creation;
 
 
-    @Override
-    public String toString() {
-        return "Topo{" +
-                "id=" + id +
-                ", visible=" + visible +
-                ", nom='" + nom + '\'' +
-                ", description='" + description + '\'' +
-                ", date_creation=" + date_creation +
-                ", sites=" + sites +
-                '}';
-    }
-
     @OneToMany(mappedBy = "topo")
     private List<Site> sites;
 
-    public List<Site> getSites() {
-        return sites;
-    }
+    @ManyToOne
+    private User user;
 
-    public void setSites(List<Site> sites) {
-        this.sites = sites;
-    }
 
 
     public Topo()
@@ -64,6 +49,23 @@ public class Topo {
         this.date_creation =da;
     }
 
+
+    public List<Site> getSites() {
+        return sites;
+    }
+
+    public void setSites(List<Site> sites) {
+        this.sites = sites;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     public int getId() {
         return id;
     }
@@ -103,6 +105,19 @@ public class Topo {
 
     public void setDate_creation(Date date_creation) {
         this.date_creation = date_creation;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Topo{" +
+                "id=" + id +
+                ", visible=" + visible +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", date_creation=" + date_creation +
+                ", sites=" + sites +
+                '}';
     }
 
 

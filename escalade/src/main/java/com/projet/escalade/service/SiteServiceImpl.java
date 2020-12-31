@@ -1,5 +1,6 @@
 package com.projet.escalade.service;
 
+import com.projet.escalade.entity.Commentaire;
 import com.projet.escalade.entity.Site;
 import com.projet.escalade.entity.Topo;
 import com.projet.escalade.entity.Voie;
@@ -35,7 +36,23 @@ public class SiteServiceImpl  implements  SiteService{
         return sites;
     }
 
+    @Override
+    public List<Voie> getVoieBySite(int id)
+    {
+        Site s = siteRepository.findById(id);
 
+        List<Voie> voies = s.getVoies();
+
+        return voies;
+    }
+
+
+    @Override
+    public  List<Commentaire> getCommentaireListByIdSite(int id)
+    {
+        Site s = siteRepository.findById(id);
+        return s.getCommentaires();
+    }
 
     @Override
     public Site getSiteById(int id)
@@ -92,15 +109,7 @@ public class SiteServiceImpl  implements  SiteService{
         siteRepository.deleteById(id);
     }
 
-    @Override
-    public List<Voie> getVoieBySite(int id)
-    {
-        Site s = siteRepository.findById(id);
 
-        List<Voie> voies = s.getVoies();
-
-        return voies;
-    }
 
     @Override
     public int getIdTopoByIdSite(int id)
@@ -112,6 +121,14 @@ public class SiteServiceImpl  implements  SiteService{
         int id_topo = t.getId();
 
         return id_topo;
+    }
+
+    @Override
+    public Topo getTopoByIdSite(int id)
+    {
+        Site s = siteRepository.findById(id);
+        Topo t = s.getTopo();
+        return t;
     }
 
 }

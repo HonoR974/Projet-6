@@ -1,6 +1,9 @@
 package com.projet.escalade.controller;
 
+import com.projet.escalade.entity.User;
+import com.projet.escalade.service.SecurityService;
 import com.projet.escalade.service.TopoService;
+import com.projet.escalade.service.UserService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,11 +24,22 @@ public class TopoController {
     @Autowired
     private TopoService topoService;
 
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserService userService;
+
     //-------------   Liste  --------------//
+    // Besoin de ( listeTopo & user )
+
     @RequestMapping(value = "/topo/liste", method = RequestMethod.GET)
-    public String topoListe(Model model)
+    public String topoListe(@RequestParam(value = "id")int id_user,
+            Model model)
     {
-        model.addAttribute("liste", topoService.getTopoList());
+        model.addAttribute("liste", topoService.getTopoListByIdUser(id_user));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "topo/liste";
     }
 
@@ -33,14 +47,16 @@ public class TopoController {
 
     //------------ Ajout Topo  --------------//
     @RequestMapping(value = "/topo/ajout", method = RequestMethod.GET)
-    public String topoAjoutGet(Model model)
+    public String topoAjoutGet(@RequestParam(value = "id")int id_user,
+                    Model model)
     {
-        model.addAttribute("topo", topoService.createTopo());
+        model.addAttribute("topo", topoService.createTopo(id_user));
         return "topo/ajout";
     }
 
     @RequestMapping(value = "/topo/ajout", method = RequestMethod.POST)
-    public String topoAjoutPost(@RequestParam(value = "visible",required = false)boolean visible,
+    public String topoAjoutPost(@RequestParam(value = "id")int id,
+                                @RequestParam(value = "visible",required = false)boolean visible,
                                 @RequestParam(value = "nom", required = false)String nom,
                                 @RequestParam(value = "description", required = false)String description,
                                 @RequestParam(value = "date_creation", required = false)
@@ -48,18 +64,21 @@ public class TopoController {
                                  Model model)
     {
 
-        model.addAttribute("topo", topoService.saveTopo(visible,nom,description,date));
+        model.addAttribute("topo", topoService.saveTopo(id,visible,nom,description,date));
+        model.addAttribute("user", topoService.getUserById(id));
         return "topo/recapAdd";
     }
 
 
     //------------- detail ------//
+    // Besoin : ( Topo , User , ListeSite )
     @RequestMapping(value = "/topo/detail", method = RequestMethod.GET)
     public String detail(@RequestParam(value = "id")int id, Model model)
     {
+        model.addAttribute("user", topoService.getUserById(id));
+
         model.addAttribute("topo", topoService.getTopoByID(id));
 
-        //
          model.addAttribute("listeSite", topoService.sendSiteByTopo(id));
 
         return "topo/detail";
@@ -96,8 +115,12 @@ public class TopoController {
     @RequestMapping(value = "/topo/supprime",method = RequestMethod.POST)
     public String supprPost(@RequestParam(value = "id")int id, Model model)
     {
+        User u = topoService.getUserById(id);
+
+
         topoService.deleteById(id);
-        model.addAttribute("liste", topoService.getTopoList());
+
+        model.addAttribute("liste", topoService.getTopoListByIdUser(u.getId()));
         return "topo/liste";
     }
 

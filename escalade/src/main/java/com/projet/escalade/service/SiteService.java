@@ -1,5 +1,6 @@
 package com.projet.escalade.service;
 
+import com.projet.escalade.entity.Commentaire;
 import com.projet.escalade.entity.Site;
 import com.projet.escalade.entity.Topo;
 import com.projet.escalade.entity.Voie;
@@ -13,6 +14,8 @@ public interface SiteService {
 
     List<Voie> getVoieBySite(int id);
 
+    List<Commentaire> getCommentaireListByIdSite(int id);
+
     Site getSiteById(int id);
 
     Site createSite();
@@ -23,9 +26,12 @@ public interface SiteService {
 
     Topo getTopoByIdTopo(int id);
 
+    Topo getTopoByIdSite(int id);
+
     int getIdTopoByIdSite (int id);
 
     void deleteById(int id);
+
 
 
 
