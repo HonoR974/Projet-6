@@ -12,4 +12,6 @@ public interface CommentaireRepository  extends JpaRepository<Commentaire, Integ
 
     List<Commentaire> findBySite(Site site);
 
+    Commentaire findById(int id);
+
 }

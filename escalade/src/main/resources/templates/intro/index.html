@@ -128,6 +128,40 @@
 
 
 
+            <!-- Alerte lors de la connection d'un utilisateur  -->
+            <div class="row" sec:authorize="isAuthenticated()">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <h5 class="alert-heading">Bon retour parmis nous  </h5>
+                    <p>Identifiant :  <h3 sec:authentication="name" > </h3></p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Alerte lors de la connection d'un utilisateur  -->
+            <div class="row" sec:authorize="hasRole('ROLE_USER')">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <h5 class="alert-heading">Nous vous attendions chere Utilisateur  </h5>
+                    <p>Identifiant :  <h3 sec:authentication="name" > </h3></p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Alerte lors de la connection d'un admin -->
+            <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <h5 class="alert-heading">Nous vous attendions chere Admin  </h5>
+                    <p>Identifiant :  <h3 sec:authentication="name" > </h3></p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+
+
         </div>
 
         <!-- footer-->

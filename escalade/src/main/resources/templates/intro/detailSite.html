@@ -125,11 +125,35 @@
 
     <!-- Liste Commentaire -->
     <div class="cadre">
-        <dl th:each ="com : ${commentaires}">
-            <dt th:utext="${com.id}"> id</dt>
-            <dt th:utext="${com.contenu}"> Contenu</dt>
-            <dt th:utext="${com.getUser().getUsername()}">Nom User </dt>
-        </dl>
+
+            <dl th:each ="com : ${commentaires}"  class="fondComment">
+
+                    <dt th:utext="${com.getUser().getUsername()}">Nom User </dt>
+                    <dt th:utext="${com.contenu}"> Contenu</dt>
+
+
+                <!-- Btn edition pour le membre de l'association -->
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <button type="button" class="btn btn-light">
+                        <a th:href="@{/comment/update(id=${com.id})}"  >Edition</a>
+                    </button>
+                    <form  th:action="@{/comment/delete(id=${com.id})}" method="post">
+                        <input type="submit" value="delete"/>
+                    </form>
+                </div>
+
+
+
+            </dl>
+
+
+
+
+
+    </div>
+
+    <div class="col-12 jumbotron" sec:authorize="isAuthenticated()">
+        <h2> Bienvenue <h1 sec:authentication="name"></h1> </h2>
     </div>
 
 

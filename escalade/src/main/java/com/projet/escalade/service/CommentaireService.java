@@ -9,4 +9,13 @@ public interface CommentaireService {
 
     Commentaire createComment();
 
+    Commentaire getCommentById(int id);
+
+    void updateComment(int id, String c);
+
+    int getIdSiteByIdComment(int id);
+
+    void deleteComment(int id);
+
+
 }

@@ -50,6 +50,36 @@ public class CommentaireServiceImpl implements CommentaireService {
         return c;
     }
 
+    @Override
+    public Commentaire getCommentById(int id)
+    {
+        return commentaireRepository.findById(id);
+    }
 
+
+    @Override
+    public void updateComment(int id, String contenu)
+    {
+        Commentaire c = commentaireRepository.findById(id);
+        c.setContenu(contenu);
+        commentaireRepository.save(c);
+
+    }
+
+    @Override
+    public int getIdSiteByIdComment(int id)
+    {
+        Commentaire c = commentaireRepository.findById(id);
+        Site s = c.getSite();
+        return s.getId();
+    }
+
+    @Override
+    public void deleteComment(int id)
+    {
+        Commentaire c = commentaireRepository.findById(id);
+        commentaireRepository.delete(c);
+
+    }
 
 }

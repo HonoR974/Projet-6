@@ -47,7 +47,7 @@ public class IntroController {
 
     //------------- Detail Site ------------//
     @GetMapping(value = "/intro/detailSite")
-    public String detailSite(@RequestParam(value = "id")int id,
+    public String detailSite(@RequestParam(value = "id")int id ,
                              Model model)
     {
         model.addAttribute("site", siteService.getSiteById(id));

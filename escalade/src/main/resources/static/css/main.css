@@ -85,5 +85,14 @@ body {
     padding: 3px;
     border-style: outset  inset solid inset;
     border-color: aqua;
+
+    background-color: rgba(47,36,208,0.5);
 }
 
+.fondComment
+{
+    background-color: rgba(36,128,208,0.3);
+    border-style: outset outset solid inset;
+    border-color: bisque;
+
+}
