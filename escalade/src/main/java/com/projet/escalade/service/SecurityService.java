@@ -13,5 +13,7 @@ public interface SecurityService {
 
     String getNameUser();
 
+    User getUser();
+
 
 }

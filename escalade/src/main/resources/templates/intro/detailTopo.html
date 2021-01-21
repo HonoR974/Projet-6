@@ -4,14 +4,15 @@
 
 
 <head>
-    <title>Detail</title>
+    <title th:utext="${topo.getNom()}"></title>
     <meta charset="utf-8" />
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link th:href="@{/css/main.css}"  rel="stylesheet"/>
+    <link th:href="@{/css/detail.css}"  rel="stylesheet"/>
 
 </head>
 <body>
+
 
 
 
@@ -19,152 +20,157 @@
     <header>
 
         <!-- Menu -->
-        <div class="row">
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
 
-            <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+            <!-- Le logo du menu -->
+            <a class="navbar-brand" th:href="@{/}">
+                Accueil
+            </a>
 
-                <!-- Le logo du menu -->
-                <a class="navbar-brand" th:href="@{/}">Accueil </a>
+            <!-- btn bascule de navigation -->
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <!-- btn bascule de navigation -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <!-- liens du menu  -->
+            <div class="collapse navbar-collapse" id="navbarContent">
 
-                <!-- liens du menu  -->
-                <div id="navbarContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
-                        <!-- btn espace perso -->
-                        <li class="nav-item" sec:authorize="isAuthenticated()">
-                            <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
-                        </li>
-
-                        <!-- btn login -->
-                        <li class="nav-item" sec:authorize="isAnonymous()">
-                            <a class="nav-link" th:href="@{/security/login}">Login</a>
-                        </li>
-
-                        <!-- btn inscription -->
-                        <li class="nav-item " sec:authorize="isAnonymous()">
-                            <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
-                        </li>
-
-                        <!-- btn logout -->
-                        <li class="nav-item " sec:authorize="isAuthenticated()">
-                            <form  class="nav-link" th:action="@{/logout}" method="post">
-                                <input type="submit" value="Logout"/>
-                            </form>
-
-                        </li>
-
-                    </ul>
-                </div>
-
-            </nav>
-        </div>
+                <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
 
 
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/intro/topo}">Topos</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a class="nav-link" th:href="@{/intro/site}">Sites</a>
+                    </li>
+
+                    <!-- btn espace perso -->
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
+                    </li>
+
+                    <!-- btn login -->
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/login}">Login</a>
+                    </li>
+
+                    <!-- btn inscription -->
+                    <li class="nav-item " sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
+                    </li>
+
+                    <!-- btn logout -->
+                    <li class="nav-item " sec:authorize="isAuthenticated()">
+                        <form  class="nav-link" th:action="@{/logout}" method="post">
+                            <input type="submit" value="Logout"/>
+                        </form>
+                    </li>
+
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
+                </form>
+            </div>
+
+        </nav>
     </header>
 
-<!-- Contenu -->
-<div class="container">
+    <!-- Contenu -->
+    <div class="container">
 
-    <!-- Partie hero -->
-    <div class="row">
+        <!-- Si connécté - Message d'accueil  -->
+        <div class="row cadreMessage" sec:authorize="isAuthenticated()">
 
-        <div class="col-12 jumbotron" sec:authorize="isAnonymous()">
-            <h1> Detail Topo  </h1>
+            <div class="col-12 jumbotron" >
+                <p>Bienvenue <strong sec:authentication="name" ></strong></p>
+            </div>
         </div>
 
-        <div class="col-12 jumbotron" sec:authorize="isAuthenticated()">
-            <h2> Bienvenue <h1 sec:authentication="name"></h1> </h2>
+
+        <!-- Partie hero -->
+        <div class="row cadre-title">
+            <div class="titre2" >
+                <p th:utext="${topo.getNom()}"></p>
+            </div>
+        </div>
+
+
+
+        <!-- Topo info -->
+        <div class="row cadreDetail">
+
+            <div class="presentation">
+                <p>Nom : <strong th:utext="${topo.nom}"></strong></p>
+                <p>Par : <strong th:utext="${topo.getUser().getUsername()}"></strong></p>
+                <p>Le : <strong th:utext="${#dates.format(topo.date_creation, 'dd-MM-yyyy')}"></strong></p>
+                <p>Descriptions : </p>
+                <p th:utext="${topo.getDescription()}"></p>
+            </div>
+
+
+        </div>
+
+
+        <!-- Btns -->
+        <div class="row ligne-button">
+            <!-- Btn retour accueil Intro -->
+            <div class=" button-detail">
+                <button type="button"  class="btn btn-outline-light">
+                    <a th:href="@{/}">Accueil</a>
+                </button>
+            </div>
+
+            <div class="button-detail">
+                <button type="button" class="btn btn-outline-light">
+                    <a th:href="@{/intro/topo}">Topos Partagés</a>
+                </button>
+            </div>
+
+            <!-- Si le topo n'appartient pas a l'UC -->
+            <div class="col" sec:authorize="isAuthenticated()"  th:if="${isMine == false}">
+                <button type="button"  class="btn btn-dark">
+                    <a th:href="@{/reservation/demande(id=${topo.id})}">Demande de Réservation</a>
+                </button>
+            </div>
+        </div>
+
+        <!-- Site  titre -->
+        <div class="row cadre-title">
+            <div class="titre2">
+                Les Sites
+            </div>
+        </div>
+
+        <!-- Site Liste-->
+        <div class="row liste-detail">
+            <table class="customers" border="1">
+                <tr>
+                    <th>Région</th>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                </tr>
+
+                <tr th:each ="site : ${liste}">
+
+                    <td>
+                        <p th:utext="${site.region}">Région</p>
+                    </td>
+
+                    <td>
+                        <a th:utext="${site.nom}" th:href="@{/intro/detailSite(id=${site.id})}">Nom</a>
+                    </td>
+                    <td>
+                        <p th:utext="${site.adresse}">Adresse</p>
+                    </td>
+                </tr>
+            </table>
         </div>
 
     </div>
-
-
-    <!-- Topo titre -->
-    <div class="row">
-        <h1 class="detail">Topo info  </h1>
-    </div>
-
-
-    <!-- Topo info -->
-    <div class="row">
-        <table border="1">
-            <tr>
-                <th>Visibilité</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Date Création</th>
-            </tr>
-
-            <tr>
-                <td>
-                    <ul th:utext="${topo.visible}" >...</ul>
-                </td>
-                <td>
-                    <ul th:utext="${topo.nom}">...</ul>
-                </td>
-
-                <td>
-                    <ul th:utext="${topo.description}">...</ul>
-                </td>
-                <td>
-
-                    <ul th:utext="${topo.date_creation}">...</ul>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <!-- Btn retour accueil Intro -->
-    <div class="row">
-        <button type="button"  class="btn btn-dark">
-
-                <a th:href="@{/}">Accueil</a>
-
-        </button>
-    </div>
-
-    <!-- Site  titre -->
-    <div class="row">
-        <h1 class="detail">Site Liste  </h1>
-    </div>
-
-    <!-- Site Liste-->
-    <div class="row">
-        <table class="detail" border="1">
-            <tr>
-                <th>Région</th>
-                <th>Nom</th>
-                <th>Adresse</th>
-            </tr>
-
-            <!-- pour chaque site  -->
-            <tr th:each ="site : ${liste}">
-
-                <!-- on affiche le prenom et nom-->
-                <td>
-                    <h1 th:utext="${site.region}">Région</h1>
-                </td>
-
-                <td>
-                    <a th:utext="${site.nom}" th:href="@{/intro/detailSite(id=${site.id})}">Nom</a>
-                </td>
-                <td>
-                    <h1 th:utext="${site.adresse}">Adresse</h1>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-</div>
-
-<!-- footer-->
-<div class="footer">
-    <p>footer</p>
-</div>
 
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

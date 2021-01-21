@@ -12,6 +12,7 @@ public interface TopoService {
 
      List<Topo> getTopoListByIdUser(int id_user);
 
+
      List<Topo> getTopoListByVisible( );
 
      Topo createTopo(int id_user);

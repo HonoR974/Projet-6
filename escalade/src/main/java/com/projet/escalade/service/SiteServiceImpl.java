@@ -28,12 +28,13 @@ public class SiteServiceImpl  implements  SiteService{
     {
         Topo t = topoRepository.findById(id_topo);
 
-        List<Site> sites = siteRepository.findByTopo(t);
+        return  siteRepository.findByTopo(t);
+    }
 
-        //ca doit etre find By id_topo
-
-
-        return sites;
+    @Override
+    public List<Site> getSiteListByVisible()
+    {
+           return siteRepository.findByVisible(true);
     }
 
     @Override
@@ -41,9 +42,7 @@ public class SiteServiceImpl  implements  SiteService{
     {
         Site s = siteRepository.findById(id);
 
-        List<Voie> voies = s.getVoies();
-
-        return voies;
+        return s.getVoies();
     }
 
 
@@ -78,20 +77,24 @@ public class SiteServiceImpl  implements  SiteService{
     }
 
     @Override
-    public Site saveSite(String r, String n, String a, int id_topo)
+    public Site saveSite(int id_topo, boolean visible, String r, String n, String a)
     {
         Site s = new Site(r,n,a);
 
         Topo t = topoRepository.findById(id_topo);
+        s.setVisible(visible);
         s.setTopo(t);
+        s.setTag(false);
+
         siteRepository.save(s);
         return s;
     }
 
     @Override
-    public Site updateSite(int id, String r, String n, String a)
+    public Site updateSite(int id, boolean visible, String r, String n, String a)
     {
         Site s = siteRepository.findById(id);
+        s.setVisible(visible);
         s.setRegion(r);
         s.setNom(n);
         s.setAdresse(a);
@@ -131,4 +134,11 @@ public class SiteServiceImpl  implements  SiteService{
         return t;
     }
 
+    @Override
+    public void tagSite(int id)
+    {
+        Site s = siteRepository.findById(id);
+        s.setTag(true);
+        siteRepository.save(s);
+    }
 }

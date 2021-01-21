@@ -12,6 +12,8 @@ public interface SiteService {
 
     List<Site> getSiteListByIdTop(int id_topo);
 
+    List<Site> getSiteListByVisible();
+
     List<Voie> getVoieBySite(int id);
 
     List<Commentaire> getCommentaireListByIdSite(int id);
@@ -20,9 +22,9 @@ public interface SiteService {
 
     Site createSite();
 
-    Site saveSite(String r, String n, String a, int id_topo);
+    Site saveSite(int id_topo, boolean visible, String r, String n, String a );
 
-    Site updateSite(int id, String r, String n,String a);
+    Site updateSite(int id, boolean visible, String r, String n,String a);
 
     Topo getTopoByIdTopo(int id);
 
@@ -32,6 +34,7 @@ public interface SiteService {
 
     void deleteById(int id);
 
+    void tagSite(int id);
 
 
 

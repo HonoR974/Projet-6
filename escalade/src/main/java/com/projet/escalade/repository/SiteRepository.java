@@ -14,5 +14,8 @@ public interface SiteRepository  extends JpaRepository<Site,Integer> {
 
     List<Site>  findByTopo(Topo topo);
 
+    List<Site> findByNomIgnoreCaseOrRegionIgnoreCase(String nom, String region);
+
+    List<Site> findByVisible(boolean b);
 
 }

@@ -1,7 +1,6 @@
 package com.projet.escalade.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -17,11 +16,15 @@ public class Topo {
     @Column(name = "visible")
     private boolean visible;
 
+
     @Column(name = "nom")
     private String nom;
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "disponible")
+    private boolean disponible;
 
 
     @Column(name = "date_creation")
@@ -34,6 +37,9 @@ public class Topo {
     @ManyToOne
     private User user;
 
+
+    @OneToMany(mappedBy = "topo")
+    private List<Reservation> reservations;
 
 
     public Topo()
@@ -74,6 +80,21 @@ public class Topo {
         this.id = id;
     }
 
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
 
     public boolean isVisible() {
         return visible;

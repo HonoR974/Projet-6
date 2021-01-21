@@ -2,6 +2,7 @@ package com.projet.escalade.service;
 
 
 import com.projet.escalade.entity.User;
+import com.projet.escalade.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
@@ -50,9 +54,14 @@ public class SecurityServiceImpl implements SecurityService{
     public String getNameUser()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+        return authentication.getName();
+    }
 
-        return currentPrincipalName;
+    @Override
+    public User getUser()
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return userRepository.findByUsername(authentication.getName());
     }
 
 

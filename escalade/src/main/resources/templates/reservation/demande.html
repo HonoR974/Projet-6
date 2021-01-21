@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+
+
+<head>
+    <title>Demande Reservation </title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link th:href="@{/css/main.css}"  rel="stylesheet"/>
+
+</head>
+<body>
+
+
+
+<!-- menu -->
+<header>
+
+    <!-- Menu -->
+    <div class="row">
+
+        <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+
+            <!-- Le logo du menu -->
+            <a class="navbar-brand" th:href="@{/}">Accueil </a>
+
+            <!-- btn bascule de navigation -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- liens du menu  -->
+            <div id="navbarContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <!-- btn espace perso -->
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
+                    </li>
+
+                    <!-- btn login -->
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/login}">Login</a>
+                    </li>
+
+                    <!-- btn inscription -->
+                    <li class="nav-item " sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
+                    </li>
+
+                    <!-- btn logout -->
+                    <li class="nav-item " sec:authorize="isAuthenticated()">
+                        <form  class="nav-link" th:action="@{/logout}" method="post">
+                            <input type="submit" value="Logout"/>
+                        </form>
+
+                    </li>
+
+                </ul>
+            </div>
+
+        </nav>
+    </div>
+
+
+</header>
+
+<!-- Contenu -->
+<div class="container">
+
+    <!-- Partie hero -->
+    <div class="row">
+
+
+        <div class="col-12 jumbotron" >
+            <h2> Demande de Réservation </h2>
+        </div>
+
+    </div>
+
+    <!-- Affichage Topo -->
+    <div class="row">
+            <table border="1">
+                <tr>
+                    <th>Visibilité</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Date Création</th>
+                    <th>Proprietaire</th>
+                </tr>
+
+                <tr>
+                    <td>
+                        <ul th:utext="${topo.visible}" >...</ul>
+                    </td>
+                    <td>
+                        <ul th:utext="${topo.nom}">...</ul>
+                    </td>
+
+                    <td>
+                        <ul th:utext="${topo.description}">...</ul>
+                    </td>
+                    <td>
+
+                        <ul th:utext="${#dates.format(topo.date_creation, 'dd-MM-yyyy')}">...</ul>
+                    </td>
+                    <td>
+                        <ul th:utext="${topo.getUser().getUsername()}">...</ul>
+                    </td>
+                </tr>
+            </table>
+   </div>
+
+    <!-- Message de Réservation -->
+    <div class="row">
+        <form action="#" th:object="${reservation}" th:action="@{/reservation/demande(id=${reservation.id})}" method="post" >
+            <div class="form-group">
+
+                <p>Message : <input type="text"  th:field="*{message}" /></p>
+                <button type="button" class="btn btn-light" >
+                    <!-- le btn cancel retourne à l'accueil  -->
+                    <a th:href="@{/intro/detailTopo(id=${reservation.getTopo().getId()})}" >Cancel Réservation</a>
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    Valider
+                </button>
+
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<!-- footer-->
+<div class="footer">
+    <p>footer</p>
+</div>
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

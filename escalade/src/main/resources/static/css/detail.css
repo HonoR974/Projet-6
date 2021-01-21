@@ -1,0 +1,235 @@
+@font-face {
+    font-family: 'Bellefair';
+    src: url('Bellefair-Regular.eot');
+    src: url('Bellefair-Regular.eot?#iefix') format('embedded-opentype'),
+    url('Bellefair-Regular.woff2') format('woff2'),
+    url('Bellefair-Regular.woff') format('woff'),
+    url('Bellefair-Regular.ttf') format('truetype'),
+    url('Bellefair-Regular.svg#Bellefair-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+body{
+
+    background-image: url( "/image/background5.jpg" );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
+nav
+{
+    background-color: rgb(203, 153, 126) ;
+}
+
+
+.nav-item
+{
+    margin-left: 20px;
+}
+
+.container{
+    margin-top: 20px;
+    height: 100%;
+    min-height: 600px;
+    background-color: rgba(240,239,235,0.8);
+}
+
+
+
+/**Titre pour les présentations d'une liste**/
+.titre2
+{
+    font-size: 40px;
+    border-style: groove;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+
+}
+
+.cadre-title
+{
+    background-color: rgba(255,241,230,0.7);
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+/**---------------Cadre Message Accueil "Bienvenue nameUser "**/
+.cadreMessage
+{
+    text-align: center;
+    font-size: 30px;
+}
+
+
+/**-------------------Cadre Deatil **/
+.cadreDetail
+{
+    width: auto;
+    height: 300px;
+    margin: 25px;
+    background-color: rgba(255, 241, 230, 0.7);
+    left: 0;
+}
+
+.presentation
+{
+    font-family: 'Bellefair';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    margin-left: 70px;
+    margin-top: 30px;
+    width: 600px;
+}
+
+
+/**----------------------Ligne Button **/
+.ligne-button
+{
+    width: auto;
+    height: 60px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 10px;
+    align-content: center;
+    justify-content: space-evenly;
+}
+
+.button-detail
+{
+    width: auto;
+    background-color: rgba(237,224,212,0.8);
+    justify-content: center;
+}
+
+
+/**-------------------Liste Detail **/
+.liste-detail
+{
+    width: auto;
+    height: 300px;
+    overflow-y: auto;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+.customers
+{
+    font-family:Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.customers td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 15px;
+}
+
+.customers tr:nth-child(even){background-color: #f2f2f2;}
+
+.customers tr:hover {background-color: #ddd;}
+
+.customers th {
+    border: 1px solid #ddd;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgba(221,190,169,0.9);
+    color: white;
+    font-size: 20px;
+}
+
+/**----------------IMG TAG **/
+.presentation img
+{
+    float: right;
+}
+
+
+
+.liste-commentaire
+{
+    width: auto;
+    height: 250px;
+    overflow-y: auto;
+   margin-top: 10px;
+    margin-left: 5px;
+
+    background-color: rgba(237,224,212,0.6);
+}
+
+.liste-commentaire dl:nth-child(even)
+{
+    background-color: rgba(240,239,235,0.8);
+}
+
+.ligne-commentaire
+{
+    justify-content: center;
+}
+
+.commentaire
+{
+    background-color: rgba(255, 241, 230, 0.6);
+    display: table-footer-group;
+}
+
+.commentaire input
+{
+    width: 300px;
+}
+
+
+/**-------------Login Registration -------------**/
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+    font-weight: normal;
+}
+
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input {
+    margin-top: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin button {
+    margin-top: 10px;
+}
+
+.has-error {
+    color: red
+}
+

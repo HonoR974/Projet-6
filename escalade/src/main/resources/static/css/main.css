@@ -1,18 +1,28 @@
-.footer
+body{
+
+    background-image: url("/image/background5.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
+nav
 {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: red;
-    color: white;
-    text-align: center;
+    background-color: rgb(203, 153, 126) ;
+}
+
+
+.nav-item
+{
+    margin-left: 20px;
+
 
 }
 
 .container{
+    margin-top: 20px;
     height: 100%;
-    background-color: rgba(219,115,246,0.3);
-
+    background-color: rgba(240,239,235,0.8);
 }
 
 .corps
@@ -22,19 +32,133 @@
     height: 100vh;
 }
 
-
-
-.detail
+.text
 {
-    padding : 40px;
-    align-content: center;
+    padding-top: 25px;
+    background-color: rgba(255,241,230,0.7);
+
 }
 
-/* tuto spring security  */
-body {
-
-    background-color: rgba(31,222,34,0.3);
+/**titre pour l'accueil **/
+.titre
+{
+    font-family: Georgia, serif;
+    justify-content: center;
+    background-color: white;
+    padding: 20px;
 }
+
+
+/**Titre pour les présentations d'une liste**/
+.titre2
+{
+    font-size: 40px;
+    border-style: groove;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+
+}
+
+.cadre-title
+{
+    background-color: rgba(240,239,245,0.4);
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+.imgAccueil
+{
+    justify-content: center;
+    background-color: white;
+}
+
+/**---------------Cadre Message Accueil "Bienvenue nameUser "**/
+.cadreMessage
+{
+    text-align: center;
+    font-size: 30px;
+
+}
+
+/**-------------Cadre Liste  --------------**/
+.cadreListeSolo
+{
+    width: 100%;
+    height: auto;
+    padding-top: 20px ;
+    overflow: auto;
+    justify-content: center;
+}
+
+
+/**--------------- Liste Topo Public **/
+.customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.customers td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 15px;
+}
+
+.customers tr:nth-child(even){background-color: #f2f2f2;}
+
+.customers tr:hover {background-color: #ddd;}
+
+.customers th {
+    border: 1px solid #ddd;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgba(221,190,169,0.9);
+    color: white;
+    font-size: 20px;
+}
+
+
+
+.fondComment
+{
+    background-color: rgba(36,128,208,0.3);
+    border-style: outset outset solid inset;
+    border-color: bisque;
+
+}
+
+/**------------------Cadre ajout **/
+.cadre-ajout
+{
+
+    height: 300px;
+    margin: 25px;
+    background-color: rgba(255, 241, 230, 0.7);
+}
+
+.cadre-ajout form
+{
+    margin-left: 25px;
+    margin-top: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/**-------------Login Registration -------------**/
 
 .form-signin {
     max-width: 330px;
@@ -79,20 +203,3 @@ body {
     color: red
 }
 
-
-.cadre
-{
-    padding: 3px;
-    border-style: outset  inset solid inset;
-    border-color: aqua;
-
-    background-color: rgba(47,36,208,0.5);
-}
-
-.fondComment
-{
-    background-color: rgba(36,128,208,0.3);
-    border-style: outset outset solid inset;
-    border-color: bisque;
-
-}

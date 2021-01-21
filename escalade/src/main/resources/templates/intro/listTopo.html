@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+
+
+<head>
+
+    <title>Topos partagés </title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link th:href="@{/css/main.css}"  rel="stylesheet"/>
+
+</head>
+<body>
+
+    <!-- menu -->
+    <header>
+
+        <!-- Menu -->
+
+
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+
+            <!-- Le logo du menu -->
+            <a class="navbar-brand" th:href="@{/}">
+                Accueil
+            </a>
+
+            <!-- btn bascule de navigation -->
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- liens du menu  -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+
+                <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
+
+
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/intro/topo}">Topos</a>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a class="nav-link" th:href="@{/intro/site}">Sites</a>
+                    </li>
+
+                    <!-- btn espace perso -->
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
+                    </li>
+
+                    <!-- btn login -->
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/login}">Login</a>
+                    </li>
+
+                    <!-- btn inscription -->
+                    <li class="nav-item " sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
+                    </li>
+
+
+                    <!-- btn logout -->
+                    <li class="nav-item " sec:authorize="isAuthenticated()">
+                        <form  class="nav-link" th:action="@{/logout}" method="post">
+                            <input type="submit" value="Logout"/>
+                        </form>
+
+                    </li>
+
+                </ul>
+
+
+                <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
+                </form>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <!-- Contenu -->
+    <div class="container">
+
+        <!-- Si connécté - Message d'accueil  -->
+        <div class="row cadreMessage" sec:authorize="isAuthenticated()">
+
+            <div class="col-12 jumbotron" >
+                <p>Bienvenue <strong sec:authentication="name" ></strong></p>
+            </div>
+        </div>
+
+        <!-- Titre liste Topo  -->
+        <div class="row cadre-title">
+            <div class="titre2">
+                Les Topos Partagés
+            </div>
+        </div>
+
+
+        <!-- Topo Liste -->
+        <div class="row">
+            <div class="cadreListeSolo">
+                <table class="customers" border="1">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Date Création</th>
+                        <th>Propriétaire</th>
+                    </tr>
+
+                    <!-- pour chaque topo  -->
+                    <tr th:each ="topo : ${liste}">
+
+                        <td>
+                            <a th:utext="${topo.nom}" th:href="@{/intro/detailTopo(id=${topo.id})}">Nom</a>
+                        </td>
+                        <td>
+                            <p th:utext="${topo.description}">Description</p>
+                        </td>
+
+                        <td>
+                            <p th:utext="${#dates.format(topo.date_creation, 'dd-MM-yyyy')}">Date</p>
+                        </td>
+                        <td>
+                            <p th:utext="${topo.getUser().getUsername()}"></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- footer-->
+    <div class="footerIntro">
+        <p>Salut</p>
+    </div>
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

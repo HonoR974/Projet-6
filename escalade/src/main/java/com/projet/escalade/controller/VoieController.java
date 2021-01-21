@@ -1,6 +1,8 @@
 package com.projet.escalade.controller;
 
 import com.projet.escalade.entity.Voie;
+import com.projet.escalade.service.SecurityService;
+import com.projet.escalade.service.UserService;
 import com.projet.escalade.service.VoieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,13 @@ public class VoieController {
     @Autowired
     private VoieService voieService;
 
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserService userService;
+
+
 
     //-------------- Liste -------------//
     @RequestMapping(value = "/voie/liste", method = RequestMethod.GET)
@@ -28,6 +37,8 @@ public class VoieController {
 
         //btn retour site
         model.addAttribute("site", voieService.getSiteByIdSite(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "voie/liste";
     }
 
@@ -38,6 +49,8 @@ public class VoieController {
     {
         model.addAttribute("voie", voieService.getVoieById(id));
         model.addAttribute("site", voieService.getSiteByIdVoie(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "voie/detail";
     }
 
@@ -52,6 +65,7 @@ public class VoieController {
         model.addAttribute("voie", voieService.createVoie(id));
         //le site de la voie
         model.addAttribute("site", voieService.getSiteByIdSite(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         return "voie/ajout";
     }
@@ -65,6 +79,8 @@ public class VoieController {
         model.addAttribute("voie", voieService.saveVoie(n,c, id_site));
 
         model.addAttribute("site", voieService.getSiteByIdSite(id_site));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "voie/recapAdd";
     }
 
@@ -76,6 +92,8 @@ public class VoieController {
                            Model model)
     {
         model.addAttribute("voie", voieService.getVoieById(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "voie/modif";
     }
 
@@ -89,6 +107,8 @@ public class VoieController {
         model.addAttribute("voie", voieService.updateVoie(id,n,c));;
 
         model.addAttribute("site", voieService.getSiteByIdVoie(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "voie/detail";
     }
 
@@ -99,6 +119,8 @@ public class VoieController {
     public String deleteGet(@RequestParam(value = "id")int id, Model model)
     {
         model.addAttribute("voie", voieService.getVoieById(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "voie/supprime";
     }
 
@@ -110,6 +132,7 @@ public class VoieController {
         voieService.deleteById(id);
         model.addAttribute("liste", voieService.getListVoieByIdSite(id_site));
         model.addAttribute("site", voieService.getSiteByIdSite(id_site));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         return "voie/liste";
     }

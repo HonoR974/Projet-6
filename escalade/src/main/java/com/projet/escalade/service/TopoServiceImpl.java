@@ -22,22 +22,32 @@ public class TopoServiceImpl  implements TopoService{
     @Autowired
     private UserRepository userRepository;
 
-    private List<Topo> topoList;
+
 
     @Override
     public List<Topo> getTopoListByIdUser(int id_user)
     {
-        User u = userRepository.findById(id_user);
+        User user = userRepository.findById(id_user);
+        List<Topo> topoList = new ArrayList<>();
+        int i = 0;
 
-        topoList = topoRepository.findByUser(u);
+        for (Topo topo : user.getTopos())
+        {
+                if (topo.isDisponible())
+                {
+                    topoList.add(topo);
+                }
+        }
+
         return topoList;
     }
+
+
 
     @Override
     public List<Topo> getTopoListByVisible()
     {
-        List<Topo> topos =  topoRepository.findTopoByVisible(true);
-        return topos;
+        return  topoRepository.findTopoByVisible(true);
     }
 
     @Override
@@ -46,6 +56,7 @@ public class TopoServiceImpl  implements TopoService{
         Topo t = new Topo();
         User u = userRepository.findById(id_user);
         t.setUser(u);
+
         topoRepository.save(t);
         return  t ;
     }
@@ -58,6 +69,7 @@ public class TopoServiceImpl  implements TopoService{
         t.setNom(n);
         t.setDescription(des);
         t.setDate_creation(date);
+        t.setDisponible(true);
         topoRepository.save(t);
 
         return t ;
@@ -92,9 +104,7 @@ public class TopoServiceImpl  implements TopoService{
     public List<Site> sendSiteByTopo(int id)
     {
         Topo t = topoRepository.findById(id);
-
-        List<Site> sites = t.getSites();
-        return sites;
+        return t.getSites();
 
     }
 
@@ -102,8 +112,7 @@ public class TopoServiceImpl  implements TopoService{
     public User getUserById(int id)
     {
         Topo t = topoRepository.findById(id);
-        User u = t.getUser();
-        return u;
+        return  t.getUser();
     }
 
 }

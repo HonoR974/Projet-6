@@ -6,77 +6,101 @@
     <meta charset="utf-8" />
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/detail.css}"/>
 
 </head>
 <body>
+    <!-- menu -->
+    <header>
 
-<!-- menu -->
-<header>
-
-    <!-- Menu -->
-    <div class="row">
-
-        <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+        <!-- Menu -->
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
 
             <!-- Le logo du menu -->
-            <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
+            <a class="navbar-brand" th:href="@{/}">
+                Accueil
+            </a>
 
             <!-- btn bascule de navigation -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbarContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <!-- liens du menu  -->
-            <div id="navbarContent" class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/}"> Accueil</a>
+            <div class="collapse navbar-collapse" id="navbarContent">
+
+                <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
+
+                    <!-- btn espace perso -->
+                    <li class="nav-item active" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
                     </li>
+
+                    <!-- btn topo-->
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
+                        <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
                     </li>
+
+                    <!-- btn login -->
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/login}">Login</a>
+                    </li>
+
+                    <!-- btn inscription -->
+                    <li class="nav-item " sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
+                    </li>
+
+                    <!-- Reservation -->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/espace/reservation(id=${user.id})}">Reservations</a>
+                    </li>
+
+                    <!-- btn logout -->
+                    <li class="nav-item " sec:authorize="isAuthenticated()">
+                        <form  class="nav-link" th:action="@{/logout}" method="post">
+                            <input type="submit" value="Logout"/>
+                        </form>
+                    </li>
+
                 </ul>
+
+
+                <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
+                </form>
             </div>
 
-
         </nav>
-    </div>
-</header>
+    </header>
 
 
+    <div class="container">
 
-<div class="container">
+        <!-- Partie titre -->
+        <div class="row cadre-title">
+            <div class="titre2 " >
+                Ajout d'une nouvelle voie
+            </div>
 
+        </div>
 
-    <!-- Partie titre -->
-    <div class="row">
+        <div class="row cadreDetail">
+            <div class="presentation">
+                <form action="#" th:action="@{/voie/ajout(id=${site.id})}"
+                      th:object="${voie}" method="post">
+                    <p>Nom : <input type="text" th:field="*{nom}"></p>
+                    <p>Cotation : <input type="text" th:field="*{cotation}"></p>
 
-        <div class="col-12 jumbotron" >
-            <h1>Ajout d'une nouvelle voie </h1>
+                    <p><input type="submit" value="Valider" /> <input type="reset" value="Reset" /></p>
+                </form>
+            </div>
         </div>
 
     </div>
 
-    <div class="detail">
-        <form action="#" th:action="@{/voie/ajout(id=${site.id})}"
-              th:object="${voie}" method="post">
-            <p>Nom : <input type="text" th:field="*{nom}"></p>
-            <p>Cotation : <input type="text" th:field="*{cotation}"></p>
-
-            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
-    </div>
-
-
-
-</div>
-
-
-<!-- footer-->
-<div class="footer">
-    <p>footer</p>
-</div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

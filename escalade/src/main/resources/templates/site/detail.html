@@ -1,77 +1,104 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
-    <title>Detail</title>
+    <title th:utext="${site.getNom()}"></title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/detail.css}"/>
 </head>
 <body>
 
-<!-- menu -->
-<header>
+    <!-- menu -->
+    <header>
 
-    <!-- Menu -->
-    <div class="row">
-
-        <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+        <!-- Menu -->
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
 
             <!-- Le logo du menu -->
-            <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
+            <a class="navbar-brand" th:href="@{/}">
+                Accueil
+            </a>
 
             <!-- btn bascule de navigation -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbarContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <!-- liens du menu  -->
-            <div id="navbarContent" class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/}"> Accueil</a>
+            <div class="collapse navbar-collapse" id="navbarContent">
+
+                <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
+
+                    <!-- btn espace perso -->
+                    <li class="nav-item active" >
+                        <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
                     </li>
+
+                    <!-- btn topo-->
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
+                        <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
                     </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/espace/reservation(id=${user.id})}">Reservations</a>
+                    </li>
+
+                    <!-- btn logout -->
+                    <li class="nav-item " sec:authorize="isAuthenticated()">
+                        <form  class="nav-link" th:action="@{/logout}" method="post">
+                            <input type="submit" value="Logout"/>
+                        </form>
+                    </li>
+
                 </ul>
+
+
+                <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
+                </form>
             </div>
 
-
         </nav>
-    </div>
-</header>
+    </header>
+
+
 
 <div  class="container">
 
 
     <!-- Partie titre -->
-    <div class="row">
+    <div class="row cadre-title">
 
-        <div class="col-12 jumbotron" >
-            <h1>detail du site  </h1>
+        <div class="titre2" >
+            <div th:utext="${site.nom}"></div>
         </div>
 
     </div>
 
 
-    <!-- Info Site -->
-    <div class="detail">
-        <div class="row">
 
-            <div class="col">
 
-                <ul th:utext="${site.id}" >...</ul>
-                <ul th:utext="${site.nom}" >...</ul>
-                <ul th:utext="${site.region}" >...</ul>
-                <ul th:utext="${site.adresse}" >...</ul>
-            </div>
+    <!-- Site info  et tag -->
+    <div class="row cadreDetail">
+
+        <div class="presentation">
+
+                <img class="img-tag" th:if="${site.tag == true}" th:src="@{/image/iconEscalade.png}" alt="iconEscalade">
+
+                <p>Nom du site : <strong th:utext="${site.nom}"></strong></p>
+                <p>Topo : <strong th:utext="${site.getTopo().getNom()}"></strong></p>
+                <p>Adresse : <strong th:utext="${site.adresse}"></strong></p>
+
         </div>
     </div>
-
 
 
     <!-- btn site   -->
-        <div class="row">
+        <div class="row ligne-button">
         <!-- btn liste -->
         <div class="col">
             <button type="button" class="btn btn-light">
@@ -98,44 +125,36 @@
         </div>
     </div>
 
-
-    <!-- Partie voie  -->
-    <div class="row">
-
-        <div class="col-12 jumbotron" >
-            <h1>liste des voies </h1>
-        </div>
-
+    <!-- Voie  titre -->
+    <div class="row cadre-title">
+        <div class="titre2">Les Voies</div>
     </div>
 
-    <div class="detail">
+    <!-- Voie Liste-->
+    <div class="row liste-detail">
+        <table class="customers" border="1">
+            <tr>
+                <th>Nom</th>
+                <th>Cotation</th>
+            </tr>
 
-        <div class="row">
+            <!-- pour chaque voie  -->
+            <tr th:each ="voie : ${listeVoie}">
 
-            <table border="1">
-
-                <tr>
-                    <th>Nom</th>
-                    <th>Cotation</th>
-                </tr>
-                <tr th:each="voie : ${listeVoie}">
-                    <td>
-                        <a th:utext="${voie.nom}" th:href="@{/voie/detail(id=${voie.id})}">Nom</a>
-                    </td>
-                    <td>
-                        <p th:utext="${voie.cotation}"></p>
-                    </td>
-                </tr>
-            </table>
-
-        </div>
+                <td>
+                    <a th:utext="${voie.nom}" th:href="@{/voie/detail(id=${voie.id})}" >Nom</a>
+                </td>
+                <td>
+                    <p th:utext="${voie.cotation}">Cotation</p>
+                </td>
+            </tr>
+        </table>
     </div>
 
 
 
     <!-- btn ajout voie -->
-    <div class="row">
-
+    <div class="row ligne-button">
 
         <div class="col">
             <button type="button" class="btn btn-light">
@@ -145,17 +164,7 @@
         </div>
     </div>
 
-
-
     </div>
-
-
-
-<!-- footer-->
-<div class="footer">
-    <p>footer</p>
-</div>
-
 
 
 

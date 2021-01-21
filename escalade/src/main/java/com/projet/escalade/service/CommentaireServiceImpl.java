@@ -23,6 +23,15 @@ public class CommentaireServiceImpl implements CommentaireService {
     @Autowired
     private UserService userService;
 
+    /**
+     *
+     * La creation du commentaire
+     * <p>on recupere l'user ainsi que le site et plein d'autre chose </p>
+     * @param id_site id site
+     * @param name_user name user
+     * @param contenu contenu
+     *
+     */
     @Override
    public void saveComment(int id_site, String  name_user, String contenu)
     {

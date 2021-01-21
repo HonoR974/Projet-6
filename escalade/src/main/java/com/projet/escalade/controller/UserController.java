@@ -56,7 +56,7 @@ public class UserController {
 
 
 
-        return "intro/index";
+        return "redirect:/intro/index";
     }
 
     @GetMapping("/security/login")

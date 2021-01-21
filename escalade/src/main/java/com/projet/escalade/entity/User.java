@@ -27,6 +27,27 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Commentaire> commentaires;
 
+    @OneToMany(mappedBy = "user")
+    private List<Reservation> reservations;
+
+
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", roles=" + roles +
+                ", topos=" + topos +
+                ", commentaires=" + commentaires +
+                ", reservations=" + reservations +
+                '}';
+    }
+
+
     public List<Topo> getTopos() {
         return topos;
     }

@@ -1,6 +1,8 @@
 package com.projet.escalade.controller;
 
+import com.projet.escalade.service.SecurityService;
 import com.projet.escalade.service.SiteService;
+import com.projet.escalade.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,14 @@ public class SiteController {
     @Autowired
     private SiteService siteService;
 
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserService userService;
+
+
     private int id_topo;
 
 
@@ -23,6 +33,7 @@ public class SiteController {
     public String siteListe(Model model)
     {
         model.addAttribute("liste", siteService.getSiteListByIdTop( id_topo));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         model.addAttribute("topo", siteService.getTopoByIdTopo(id_topo));
 
@@ -44,6 +55,7 @@ public class SiteController {
 
        //pour afficher les voies du site
         model.addAttribute("listeVoie", siteService.getVoieBySite(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         return "site/detail";
     }
@@ -61,18 +73,24 @@ public class SiteController {
 
         //le topo qui ajoute ce site
         model.addAttribute("topo", siteService.getTopoByIdTopo(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "site/ajout";
     }
 
     @RequestMapping(value = "/site/ajout", method = RequestMethod.POST)
     public String ajoutPost(@RequestParam("id")int id_topo,
-            @RequestParam(value = "region")String r,
-            @RequestParam(value = "nom")String n,
-            @RequestParam(value = "adresse")String a,
+            @RequestParam(value = "visible")boolean visible,
+            @RequestParam(value = "region")String region,
+            @RequestParam(value = "nom")String nom,
+            @RequestParam(value = "adresse")String adresse,
             Model model)
     {
 
-        model.addAttribute("site", siteService.saveSite(r,n,a,id_topo));
+        model.addAttribute("site", siteService.saveSite(id_topo, visible,region, nom,adresse));
+        model.addAttribute("topo", siteService.getTopoByIdTopo(id_topo));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "site/recapAdd";
 
     }
@@ -82,20 +100,23 @@ public class SiteController {
     public String modifGet(@RequestParam(value = "id")int id, Model model)
     {
         model.addAttribute("site", siteService.getSiteById(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         return "site/modif";
     }
 
     @RequestMapping(value = "/site/modif", method = RequestMethod.POST)
     public String modifPost(@RequestParam(value = "id")int id,
+                            @RequestParam(value = "visible")boolean visible,
                             @RequestParam(value = "region")String r ,
                             @RequestParam(value = "nom")String n ,
                             @RequestParam(value = "adresse")String a ,
                             Model model)
     {
-       model.addAttribute("site", siteService.updateSite(id, r,n, a ));
+       model.addAttribute("site", siteService.updateSite(id, visible, r,n, a ));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
-       return "site/detail";
+        return "site/detail";
     }
 
 
@@ -105,6 +126,8 @@ public class SiteController {
     public String supprimGet(@RequestParam(value = "id")int id,
                              Model model)
     {
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         model.addAttribute("site", siteService.getSiteById(id));
         return "site/supprime";
     }
@@ -117,6 +140,8 @@ public class SiteController {
         siteService.deleteById(id);
         model.addAttribute("liste", siteService.getSiteListByIdTop(id_topo));
         model.addAttribute("topo", siteService.getTopoByIdTopo(id_topo));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "site/liste";
     }
 

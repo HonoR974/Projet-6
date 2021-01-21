@@ -21,6 +21,12 @@ public class Site {
     @Column(name = "adresse")
     private String adresse;
 
+    @Column(name = "tag")
+    private boolean tag;
+
+    @Column(name = "visible")
+    private boolean visible;
+
     @ManyToOne
     private Topo topo;
 
@@ -32,9 +38,15 @@ public class Site {
     private List<Commentaire> commentaires;
 
 
-
-
     //----------GET & SET ------------//
+
+    public boolean isTag() {
+        return tag;
+    }
+
+    public void setTag(boolean tag) {
+        this.tag = tag;
+    }
 
     public List<Commentaire> getCommentaires() {
         return commentaires;
@@ -104,4 +116,11 @@ public class Site {
         this.adresse = adresse;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }

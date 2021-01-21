@@ -15,33 +15,65 @@
 <header>
 
     <!-- Menu -->
-    <div class="row">
+    <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
 
-        <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+        <!-- Le logo du menu -->
+        <a class="navbar-brand" th:href="@{/}">
+            Accueil
+        </a>
 
-            <!-- Le logo du menu -->
-            <a class="navbar-brand" th:href="@{/}">Mon Espace Perso  </a>
+        <!-- btn bascule de navigation -->
+        <button class="navbar-toggler" type="button"
+                data-toggle="collapse" data-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <!-- btn bascule de navigation -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <!-- liens du menu  -->
+        <div class="collapse navbar-collapse" id="navbarContent">
 
-            <!-- liens du menu  -->
-            <div id="navbarContent" class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/}"> Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/topo/liste}">Mes Topos</a>
-                    </li>
-                </ul>
-            </div>
+            <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
+
+                <!-- btn espace perso -->
+                <li class="nav-item active" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
+                </li>
+
+                <!-- btn topo-->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
+                </li>
+
+                <!-- btn login -->
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/security/login}">Login</a>
+                </li>
+
+                <!-- btn inscription -->
+                <li class="nav-item " sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/espace/reservation(id=${user.id})}">Reservations</a>
+                </li>
+
+                <!-- btn logout -->
+                <li class="nav-item " sec:authorize="isAuthenticated()">
+                    <form  class="nav-link" th:action="@{/logout}" method="post">
+                        <input type="submit" value="Logout"/>
+                    </form>
+                </li>
+
+            </ul>
 
 
-        </nav>
-    </div>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
+                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
+            </form>
+        </div>
+
+    </nav>
 </header>
 
 
@@ -50,49 +82,44 @@
 <div class="container">
 
     <!-- Partie titre -->
-    <div class="row">
+    <div class="row cadre-title">
 
-        <div class="col-12 jumbotron" >
-            <h1>liste des voies  </h1>
+        <div class="titre2" >
+            Liste des Voies
         </div>
 
     </div>
 
-    <!-- liste des Voies  -->
-
-    <div class="detail">
+         <!-- liste des Voies  -->
         <div class="row">
-            <table border="1">
-                <tr>
-                    <th>Nom</th>
-                    <th>Cotation</th>
-                </tr>
+            <div class="cadreListeSolo">
+                <table class="customers" border="1">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Cotation</th>
+                    </tr>
 
-                <!-- pour chaque personne -->
-                <tr th:each ="voie : ${liste}">
+                    <tr th:each ="voie : ${liste}">
 
-                    <!-- on affiche le prenom et nom-->
+                        <td>
+                            <p th:utext="${voie.nom}">...</p>
+                        </td>
 
-                    <td>
-                        <h1 th:utext="${voie.nom}">...</h1>
-                    </td>
+                        <td>
+                            <a th:utext="${voie.cotation}" th:href="@{/voie/detail(id=${voie.id})}">...</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-                    <td>
-                        <a th:utext="${voie.cotation}" th:href="@{/voie/detail(id=${voie.id})}">...</a>
-                    </td>
-                </tr>
-
-
-
-            </table>
         </div>
 
-    </div>
+
 
     <!-- btn -->
-    <div class="row">
+    <div class="row ligne-button">
         <!-- btn Ajout Liste  -->
-        <div class="col">
+        <div class="button-detail">
             <button type="button" class="btn btn-light">
 
                 <a th:href="@{/voie/ajout(id=${site.id})}"  >Ajout voie   </a>
@@ -100,8 +127,8 @@
         </div>
 
         <!-- btn Retour Site -->
-        <div class="col">
-            <button type="button" class="btn-light">
+        <div class="button-detail">
+            <button type="button" class="btn btn-light">
                 <a th:href="@{/site/detail(id=${site.id})}">Retour Site </a>
             </button>
         </div>
@@ -111,11 +138,6 @@
 
 </div>
 
-
-<!-- footer-->
-<div class="footer">
-    <p>footer</p>
-</div>
 
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

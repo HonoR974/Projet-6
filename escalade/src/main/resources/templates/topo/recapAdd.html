@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>Récapitualitif</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/detail.css}"/>
 
 </head>
 <body>
@@ -13,92 +14,109 @@
 <header>
 
     <!-- Menu -->
-    <div class="row">
+    <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
 
-        <nav class=" col navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- Le logo du menu -->
+        <a class="navbar-brand" th:href="@{/}">
+            Accueil
+        </a>
 
-            <!-- Le logo du menu -->
-            <a class="navbar-brand" th:href="@{/espace/accueil}">Mon Espace Perso  </a>
+        <!-- btn bascule de navigation -->
+        <button class="navbar-toggler" type="button"
+                data-toggle="collapse" data-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <!-- btn bascule de navigation -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <!-- liens du menu  -->
+        <div class="collapse navbar-collapse" id="navbarContent">
 
-            <!-- liens du menu  -->
-            <div id="navbarContent" class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/espace/accueil}"> Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
-                    </li>
-                </ul>
-            </div>
+            <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
+
+                <!-- btn espace perso -->
+                <li class="nav-item active" >
+                    <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
+                </li>
+
+                <!-- btn topo-->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
+                </li>
 
 
-        </nav>
-    </div>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/espace/reservation(id=${user.id})}">Reservations</a>
+                </li>
+
+                <!-- btn logout -->
+                <li class="nav-item " sec:authorize="isAuthenticated()">
+                    <form  class="nav-link" th:action="@{/logout}" method="post">
+                        <input type="submit" value="Logout"/>
+                    </form>
+                </li>
+
+            </ul>
+
+
+            <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
+                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
+            </form>
+        </div>
+
+    </nav>
 </header>
 
+    <div class="container">
 
-<div class="container">
-
-    <!-- Titre -->
-    <div class="row">
-
-        <div class="col-12 jumbotron" >
-            <h1  style="text-align: center"> Voici le nouveau Topo  </h1>
-        </div>
-
-    </div>
-
-    <!-- Info nouveau topo -->
-    <div class="detail">
-        <div class="row">
-            <div class="col">
-
-                <div>
-                    <p th:utext="${topo.visible}">Visibilité </p>
-                    <p th:utext="${topo.nom}">Nom</p>
-                    <p th:utext="${topo.description}">Description</p>
-                    <p th:utext="${topo.date_creation}">Date</p>
-                </div>
-
+        <!-- Titre -->
+        <div class="row cadre-title">
+            <div class="titre2" >
+                 Voici le nouveau Topo
             </div>
         </div>
-    </div>
+        <!-- Le topo -->
+        <div class="row cadreDetail" >
+            <div class="presentation">
+                <p>Nom : <strong th:utext="${topo.nom}"></strong></p>
+                <p>Par : <strong th:utext="${topo.getUser().getUsername()}"></strong></p>
+                <p>Le : <strong th:utext="${#dates.format(topo.date_creation, 'dd-MM-yyyy')}"></strong></p>
+                <p>Descriptions : </p>
+                <p th:utext="${topo.getDescription()}"></p>
+            </div>
 
-
-    <!-- BTN -->
-    <div class="row">
-
-        <!-- btn topo ajout -->
-        <div class="col">
-            <button type="button" class="btn btn-light">
-                <a th:href="@{topo/ajout(id=${user.id})}"  >Créer un nouveau topo </a>
-            </button>
         </div>
 
 
-    <!-- btn liste topo -->
+        <!-- BTN -->
+        <div class="row ligne-button">
 
-        <div class="col">
-            <button type="button" class="btn btn-light">
-                <a th:href="@{/topo/liste(id=${user.id})}"  >Retourne voir la liste  </a>
-            </button>
+            <!-- btn topo ajout -->
+            <div class="button-detail">
+                <button type="button" class="btn btn-light">
+                    <a th:href="@{/topo/ajout(id=${user.id})}"  >Créer un nouveau topo </a>
+                </button>
+            </div>
+
+            <!-- btn site ajout -->
+            <div class="button-detail">
+                <button type="button" class="btn btn-light">
+                    <a th:href="@{/site/ajout(id=${topo.id})}"  >Ajout Site  </a>
+                </button>
+            </div>
+
+        <!-- btn liste topo -->
+
+            <div class="button-detail">
+                <button type="button" class="btn btn-light">
+                    <a th:href="@{/topo/liste(id=${user.id})}"  >Retourne voir la liste  </a>
+                </button>
+            </div>
         </div>
+
+
     </div>
 
 
-</div>
-
-
-<!-- footer-->
-<div class="footer">
-    <p>footer</p>
-</div>
 
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

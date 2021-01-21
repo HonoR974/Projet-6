@@ -51,6 +51,8 @@ public class TopoController {
                     Model model)
     {
         model.addAttribute("topo", topoService.createTopo(id_user));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "topo/ajout";
     }
 
@@ -84,11 +86,15 @@ public class TopoController {
         return "topo/detail";
     }
 
+
+
     //------------------ modification ------------//
     @RequestMapping(value = "/topo/modif",method = RequestMethod.GET)
     public String modifGet(@RequestParam(value = "id")int id, Model model)
     {
         model.addAttribute("topo", topoService.getTopoByID(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "topo/modif";
     }
 
@@ -101,6 +107,10 @@ public class TopoController {
                             Model model)
     {
         model.addAttribute("topo", topoService.updateTopo(id,v,n,d));
+
+        model.addAttribute("user", topoService.getUserById(id));
+        model.addAttribute("listeSite", topoService.sendSiteByTopo(id));
+
         return "topo/detail";
     }
 
@@ -109,6 +119,8 @@ public class TopoController {
     public String supprGet(@RequestParam(value = "id")int id, Model model)
     {
         model.addAttribute("topo", topoService.getTopoByID(id));
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
         return "topo/supprime";
     }
 
@@ -123,6 +135,5 @@ public class TopoController {
         model.addAttribute("liste", topoService.getTopoListByIdUser(u.getId()));
         return "topo/liste";
     }
-
-
+    
 }

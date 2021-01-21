@@ -4,36 +4,45 @@
 
 
 <head>
+
     <title>Accueil</title>
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link th:href="@{/css/main.css}"  rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link th:href="@{/css/index.css}"  rel="stylesheet"/>
 
 </head>
 <body>
 
-        <!-- L'index sera l'espace personnel -->
 
         <!-- menu -->
         <header>
 
         <!-- Menu -->
-        <div class="row">
-
-            <nav class=" col navbar navbar-expand-lg navbar-dark bg-primary">
+            <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
 
                 <!-- Le logo du menu -->
-                <a class="navbar-brand" th:href="@{/}">Accueil </a>
+                <a class="navbar-brand" th:href="@{/}">
+                    Accueil
+                </a>
 
                 <!-- btn bascule de navigation -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                <button class="navbar-toggler" type="button"
+                        data-toggle="collapse" data-target="#navbarContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <!-- liens du menu  -->
-                <div id="navbarContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
+                <div class="collapse navbar-collapse" id="navbarContent">
+
+                    <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
+
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/intro/topo}">Topos</a>
+                        </li>
+                        <li class=" nav-item">
+                            <a class="nav-link" th:href="@{/intro/site}">Sites</a>
+                        </li>
 
                         <!-- btn espace perso -->
                         <li class="nav-item" sec:authorize="isAuthenticated()">
@@ -50,123 +59,136 @@
                             <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
                         </li>
 
+
                         <!-- btn logout -->
                         <li class="nav-item " sec:authorize="isAuthenticated()">
                             <form  class="nav-link" th:action="@{/logout}" method="post">
                                 <input type="submit" value="Logout"/>
                             </form>
 
-                        </li>
+                            </li>
 
                     </ul>
+
+
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
+                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
+                    </form>
                 </div>
 
             </nav>
-        </div>
-
-
-    </header>
+         </header>
 
         <!-- Contenu -->
         <div class="container">
 
-            <!-- Partie hero -->
-            <div class="row">
-
-                <div class="col-12 jumbotron" sec:authorize="isAnonymous()">
-                    <h1> Bienvenue dans l'accueil </h1>
-                </div>
-
-                <div class="col-12 jumbotron" sec:authorize="isAuthenticated()">
-                    <h2> Bienvenue <h1 sec:authentication="name"></h1> </h2>
-                </div>
-
-            </div>
-
-
-            <!-- Topo titre -->
-            <div class="row">
-                <h1 class="detail">Topo visible pour tous </h1>
-            </div>
-
-
-            <!-- Topo Liste -->
-            <div class="row">
-                <table class="detail" border="1">
-                    <tr>
-                        <th>Visibilité</th>
-                        <th>Nom</th>
-                        <th>Description</th>
-                        <th>Date Création</th>
-                    </tr>
-
-                    <!-- pour chaque topo  -->
-                    <tr th:each ="topo : ${liste}">
-
-                        <!-- on affiche le prenom et nom-->
-
-                        <td>
-                            <h1 th:utext="${topo.visible}">Visibilité</h1>
-                        </td>
-
-                        <td>
-                            <a th:utext="${topo.nom}" th:href="@{/intro/detailTopo(id=${topo.id})}">Nom</a>
-                        </td>
-                        <td>
-                            <h1 th:utext="${topo.description}">Description</h1>
-                        </td>
-
-                        <td>
-                            <h1 th:utext="${topo.date_creation}">Date</h1>
-                        </td>
-
-
-
-                    </tr>
-                </table>
-            </div>
-
-
-
-            <!-- Alerte lors de la connection d'un utilisateur  -->
-            <div class="row" sec:authorize="isAuthenticated()">
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                    <h5 class="alert-heading">Bon retour parmis nous  </h5>
-                    <p>Identifiant :  <h3 sec:authentication="name" > </h3></p>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+            <!-- Si connécté - Message d'accueil  -->
+            <div class="row cadreMessage" sec:authorize="isAuthenticated()">
+                <div class="col-12 jumbotron" >
+                    <p>Bienvenue <strong sec:authentication="name" ></strong></p>
                 </div>
             </div>
 
-            <!-- Alerte lors de la connection d'un utilisateur  -->
-            <div class="row" sec:authorize="hasRole('ROLE_USER')">
+            <!-- Logo et Presentation text-->
+            <div class="row imgAccueil">
+                <div >
+                    <img th:src="@{/image/iconEscalade-moyen.jpg}">
+                </div>
+            </div>
+            <div class="row titre">
+                <h2>Les amis de l'escalade </h2>
+            </div>
+
+
+            <!-- txt de presentatin -->
+            <div class="row text">
+                <p>Et prima post Osdroenam quam, ut dictum est, ab hac descriptione discrevimus, Commagena, nunc Euphratensis, clementer adsurgit, Hierapoli, vetere Nino et Samosata civitatibus amplis inlustris.</p>
+            </div>
+
+
+            <!-- Alerte lorsque l'utilisateur vient d'envoyer une demande de reservation -->
+            <div class="row" th:if="${ envoieDone == true }">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h5 class="alert-heading">Nous vous attendions chere Utilisateur  </h5>
-                    <p>Identifiant :  <h3 sec:authentication="name" > </h3></p>
+                    <h5 class="alert-heading">Votre demande de réservation a bien été envoyé  a été énvoyé   </h5>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Alerte lors de la connection d'un admin -->
-            <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h5 class="alert-heading">Nous vous attendions chere Admin  </h5>
-                    <p>Identifiant :  <h3 sec:authentication="name" > </h3></p>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+            <!-- Titre topo -->
+            <div class="row cadre-title">
+                <div class="titre2">
+                    Les Topos partagés
+                </div>
+
+            </div>
+
+            <!-- Liste topo -->
+            <div class="row ">
+                    <div class="col">
+                        <div class="espaceCard">
+                            <div class="scrolling-wrapper">
+                                <div th:each ="topo : ${listeTopo}" class="card cardIntro" >
+                                    <img class="card-img-top" th:src="@{/image/folder.png}" alt="Icon Folder" >
+                                    <div class="card-body">
+                                        <div class="card-title font-avant-sujet">Nom :  <strong class="font-sujet" th:utext="${topo.nom}"> </strong>   </div>
+                                        <div class="card-text"> <div class="font1">De : <strong class="font-sujet" th:utext="${topo.getUser().getUsername()}"></strong></div></div>
+                                        <div class="card-text"> <div class="font1">Le : <strong class="font-sujet" th:utext="${#dates.format(topo.date_creation, 'dd-MM-yyyy')}">Date </strong> </div>  </div>
+                                    </div>
+                                    <div class="card-footer">
+                                            <button type="button" class="btn btn-outline-dark">
+                                               <a th:href="@{/intro/detailTopo(id=${topo.id})}">Read Me</a>
+                                            </button>
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            <!-- Titre site -->
+            <div class="row cadre-title">
+                <div class="titre2">
+                    Les Sites partagés
                 </div>
             </div>
 
+            <!-- Liste site -->
+            <div class="row ">
+                <div class="col">
+                    <div class="espaceCard">
+                        <div class="scrolling-wrapper">
+                            <div th:each ="site : ${listeSite}" class="card cardIntro" >
+                                <img class="card-img-top" th:src="@{/image/mountain-icon.png}" alt="Icon Mountain" >
+                                <div class="card-body">
+                                    <div class="card-title"> <div class="font-avant-sujet">Nom : <strong class="font-sujet" th:utext="${site.nom}"> </strong>  </div></div>
+                                    <div class="card-text"> <div class="font1">Région : <strong  class="font-sujet"  th:utext="${site.region}"></strong></div></div>
+                                    <div class="card-text"> <div class="font1">Adresse : <strong class="font-sujet" th:utext="${site.adresse}"> </strong> </div>  </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" class="btn btn-outline-dark">
+                                        <a th:href="@{/intro/detailSite(id=${site.id})}">Read Me</a>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
 
         <!-- footer-->
-        <div class="footer">
-            <p>footer</p>
+        <div class="footerIntro">
+            <p>Salut</p>
         </div>
 
 
