@@ -13,210 +13,228 @@
 <body>
 
 
-<!-- menu -->
-<header>
+    <!-- menu -->
+    <header>
 
-    <!-- Menu -->
-    <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+        <!-- Menu -->
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
 
-        <!-- Le logo du menu -->
-        <a class="navbar-brand" th:href="@{/}">
-            Accueil
-        </a>
+            <!-- Le logo du menu -->
+            <a class="navbar-brand" th:href="@{/}">
+                Accueil
+            </a>
 
-        <!-- btn bascule de navigation -->
-        <button class="navbar-toggler" type="button"
-                data-toggle="collapse" data-target="#navbarContent">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- btn bascule de navigation -->
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <!-- liens du menu  -->
-        <div class="collapse navbar-collapse" id="navbarContent">
+            <!-- liens du menu  -->
+            <div class="collapse navbar-collapse" id="navbarContent">
 
-            <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
+                <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
 
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/intro/topo}">Topos</a>
-                </li>
-                <li class=" nav-item active">
-                    <a class="nav-link" th:href="@{/intro/site}">Sites</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/intro/topo}">Topos</a>
+                    </li>
+                    <li class=" nav-item active">
+                        <a class="nav-link" th:href="@{/intro/site}">Sites</a>
+                    </li>
 
-                <!-- btn espace perso -->
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
-                </li>
+                    <!-- btn espace perso -->
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
+                    </li>
 
-                <!-- btn login -->
-                <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" th:href="@{/security/login}">Login</a>
-                </li>
+                    <!-- btn login -->
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/login}">Login</a>
+                    </li>
 
-                <!-- btn inscription -->
-                <li class="nav-item " sec:authorize="isAnonymous()">
-                    <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
-                </li>
+                    <!-- btn inscription -->
+                    <li class="nav-item " sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
+                    </li>
 
-                <!-- btn logout -->
-                <li class="nav-item " sec:authorize="isAuthenticated()">
-                    <form  class="nav-link" th:action="@{/logout}" method="post">
-                        <input type="submit" value="Logout"/>
-                    </form>
-                </li>
-
-            </ul>
-
-            <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
-                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
-            </form>
-        </div>
-
-    </nav>
-</header>
-
-<!-- Contenu -->
-<div class="container">
-
-    <!-- Si connécté - Message d'accueil  -->
-    <div class="row cadreMessage" sec:authorize="isAuthenticated()">
-
-        <div class="col-12 jumbotron" >
-            <p>Bienvenue <strong sec:authentication="name" ></strong></p>
-        </div>
-    </div>
-
-
-
-    <!-- Site titre -->
-    <div class="row cadre-title">
-      <div class="titre2">
-          <p th:utext="${site.nom}"></p>
-      </div>
-    </div>
-
-
-    <!-- Site info  et tag -->
-    <div class="row cadreDetail">
-
-        <div class="presentation">
-            <div>
-                <img class="img-tag" th:if="${site.tag == true}" th:src="@{/image/iconEscalade.png}" alt="iconEscalade">
-
-                <p>Nom du site : <strong th:utext="${site.nom}"></strong></p>
-                <p>Topo : <strong th:utext="${site.getTopo().getNom()}"></strong></p>
-                <p>Adresse : <strong th:utext="${site.adresse}"></strong></p>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Btns -->
-    <div class="row ligne-button">
-
-            <!-- Accueil -->
-            <div class="col">
-                <button type="button" class="btn btn-outline-light">
-                    <a th:href="@{/intro/index}">Accueil</a>
-                </button>
-            </div>
-
-            <!-- Btn Detail Topo ( retour ) -->
-            <div class="col">
-                <button type="button"  class="btn btn-outline-light">
-                    <a th:href="@{/intro/detailTopo(id=${topo.id})}">Topo : <strong th:utext="${topo.nom}"></strong> </a>
-                </button>
-            </div>
-
-            <!-- Site Partagé -->
-            <div class="col">
-                <button type="button" class="btn btn-outline-light">
-                    <a th:href="@{/intro/site}">Site partagés</a>
-                </button>
-            </div>
-            <!-- btn tag MA -->
-            <div sec:authorize="hasRole('ROLE_ADMIN')"
-                 th:if="${site.tag == false}" class="col">
-
-                <form th:action="@{/intro/siteTag(id=${site.id})}" th:object="${site}" method="post">
-                    <button type="submit" value="submit">Tager le site  </button>
-                </form>
-
-            </div>
-
-
-
-
-    </div>
-
-
-     <!-- Liste Commentaire -->
-    <div class="row liste-commentaire">
-            <div class="col-12">
-                <dl th:each ="com : ${commentaires}"  >
-
-                    <dt th:utext="${com.getUser().getUsername()}">Nom User </dt>
-                    <dt th:utext="${com.contenu}"> Contenu</dt>
-
-                    <!-- Btn edition pour le membre de l'association -->
-                    <div sec:authorize="hasRole('ROLE_ADMIN')">
-                        <button type="button" class="btn btn-light">
-                            <a th:href="@{/comment/update(id=${com.id})}"  >Edition</a>
-                        </button>
-                        <form  th:action="@{/comment/delete(id=${com.id})}" method="post">
-                            <input type="submit" value="delete"/>
+                    <!-- btn logout -->
+                    <li class="nav-item " sec:authorize="isAuthenticated()">
+                        <form  class="nav-link" th:action="@{/logout}" method="post">
+                            <input type="submit" value="Logout"/>
                         </form>
-                    </div>
+                    </li>
 
-                </dl>
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
+                </form>
             </div>
+
+        </nav>
+    </header>
+
+    <!-- Contenu -->
+    <div class="container">
+
+        <!-- Si connécté - Message d'accueil  -->
+        <div class="row cadreMessage" sec:authorize="isAuthenticated()">
+
+            <div class="col-12 jumbotron" >
+                <p>Bienvenue <strong sec:authentication="name" ></strong></p>
+            </div>
+        </div>
+
+
+
+        <!-- Site titre -->
+        <div class="row cadre-title">
+          <div class="titre2">
+              <p th:utext="${site.nom}"></p>
+          </div>
+        </div>
+
+
+        <!-- Site info  et tag -->
+        <div class="row cadreDetail">
+
+            <div class="presentation">
+                <div>
+                    <img class="img-tag" th:if="${site.tag == true}" th:src="@{/image/iconEscalade.png}" alt="iconEscalade">
+
+                    <p>Nom du site : <strong th:utext="${site.nom}"></strong></p>
+                    <p>Topo : <strong th:utext="${site.getTopo().getNom()}"></strong></p>
+                    <p>Adresse : <strong th:utext="${site.adresse}"></strong></p>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Btns -->
+        <div class="row ligne-button">
+
+                <!-- Accueil -->
+                <div class="col">
+                    <button type="button" class="btn btn-outline-light">
+                        <a th:href="@{/intro/index}">Accueil</a>
+                    </button>
+                </div>
+
+                <!-- Btn Detail Topo ( retour ) -->
+                <div class="col">
+                    <button type="button"  class="btn btn-outline-light">
+                        <a th:href="@{/intro/detailTopo(id=${topo.id})}">Topo : <strong th:utext="${topo.nom}"></strong> </a>
+                    </button>
+                </div>
+
+                <!-- Site Partagé -->
+                <div class="col">
+                    <button type="button" class="btn btn-outline-light">
+                        <a th:href="@{/intro/site}">Site partagés</a>
+                    </button>
+                </div>
+                <!-- btn tag MA -->
+                <div sec:authorize="hasRole('ROLE_ADMIN')"
+                     th:if="${site.tag == false}" class="col">
+
+                    <form th:action="@{/intro/siteTag(id=${site.id})}" th:object="${site}" method="post">
+                        <button type="submit" class="btn btn-outline-primary" value="submit">Tager le site  </button>
+                    </form>
+
+                </div>
+
+
+
 
         </div>
 
-    <!-- Le commentaire a ecrire -->
-    <div class="row ligne-commentaire">
 
-                 <form action="#" th:object="${site}" th:action="@{/comment/detailSite(id=${site.id})}" method="post" >
-                     <div class=" commentaire">
-                        Message :
-                         <input type="text" th:object="${comm}" th:field="*{contenu}" />
-                         <button type="submit" class="btn btn-primary">
-                             Envoyer
-                         </button>
-                     </div>
+         <!-- Liste Commentaire -->
+        <div class="row liste-commentaire">
+                <div class="col-12">
+                    <dl th:each ="com : ${commentaires}"  >
 
-                 </form>
-         </div>
+                        <dt th:utext="${com.getUser().getUsername()}">Nom User </dt>
+                        <dt th:utext="${com.contenu}"> Contenu</dt>
+
+                        <!-- Btn edition pour le membre de l'association -->
+                        <div class="btn-membre-comment" sec:authorize="hasRole('ROLE_ADMIN')">
+
+                            <button type="button" class="btn btn-outline-dark">
+                                <a th:href="@{/comment/update(id=${com.id})}"  >Edition</a>
+                            </button>
+                            <form  th:action="@{/comment/delete(id=${com.id})}" method="post">
+                                <input class="btn btn-outline-dark" type="submit" value="Supprimer"/>
+                            </form>
+                        </div>
+
+                    </dl>
+                </div>
+
+            </div>
+
+        <!-- Le commentaire a ecrire -->
+        <div class="row ligne-commentaire">
+
+                     <form class="commentaire" action="#" th:object="${site}" th:action="@{/comment/detailSite(id=${site.id})}" method="post" >
+                             <label>
+                                 Message :
+                                 <input type="text" th:object="${comm}" th:field="*{contenu}"/>
+                             </label>
+                             <button type="submit" class="btn btn-primary">
+                                 Envoyer
+                             </button>
+
+                     </form>
+             </div>
 
 
+        <!-- Voie  titre -->
+        <div class="row cadre-title">
+            <div class="titre2">Les Voies</div>
+        </div>
 
-    <!-- Voie  titre -->
-    <div class="row cadre-title">
-        <div class="titre2">Les Voies</div>
+        <!-- Voie Liste-->
+        <div class="row liste-detail">
+            <table class="customers" border="1">
+                <tr>
+                    <th>Nom</th>
+                    <th>Cotation</th>
+                </tr>
+
+                <!-- pour chaque voie  -->
+                <tr th:each ="voie : ${liste}">
+
+                    <td>
+                        <a th:utext="${voie.nom}" th:href="@{/intro/detailVoie(id=${voie.id})}" >Nom</a>
+                    </td>
+                    <td>
+                        <p th:utext="${voie.cotation}">Cotation</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
     </div>
 
-    <!-- Voie Liste-->
-    <div class="row liste-detail">
-        <table class="customers" border="1">
-            <tr>
-                <th>Nom</th>
-                <th>Cotation</th>
-            </tr>
-
-            <!-- pour chaque voie  -->
-            <tr th:each ="voie : ${liste}">
-
-                <td>
-                    <a th:utext="${voie.nom}" th:href="@{/intro/detailVoie(id=${voie.id})}" >Nom</a>
-                </td>
-                <td>
-                    <p th:utext="${voie.cotation}">Cotation</p>
-                </td>
-            </tr>
-        </table>
+    <!-- footer-->
+    <div class="row footerIntro">
+        <div class="col-6" >
+            <p class="copyrigth">Copyright © 2021, All Right Reserved</p>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-outline-light btn-footer">
+                <a th:href="@{/intro/index}">Home</a>
+            </button>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-outline-light btn-footer">
+                <a th:href="@{/security/login}">Login</a>
+            </button>
+        </div>
     </div>
 
-</div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

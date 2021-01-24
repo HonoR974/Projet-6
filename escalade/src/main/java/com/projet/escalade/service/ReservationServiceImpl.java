@@ -187,4 +187,13 @@ public class ReservationServiceImpl implements ReservationService {
 
     }
 
+    @Override
+    public void refuserReservation(int id_reserv)
+    {
+        Reservation reservation = reservationRepository.findById(id_reserv);
+        Statut statut = statutRepository.findByName("REFUSE");
+        reservation.setStatut(statut);
+        reservationRepository.save(reservation);
+    }
+
 }

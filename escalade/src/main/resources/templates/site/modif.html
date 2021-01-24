@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>Edition</title>
@@ -94,6 +95,23 @@
 
     </div>
 
+
+<!-- footer-->
+<div class="row footerIntro">
+    <div class="col-6" >
+        <p class="copyrigth">Copyright © 2021, All Right Reserved</p>
+    </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-outline-light btn-footer">
+            <a th:href="@{/intro/index}">Home</a>
+        </button>
+    </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-outline-light btn-footer">
+            <a th:href="@{/security/login}">Login</a>
+        </button>
+    </div>
+</div>
 
 
 

@@ -1,12 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
 >
+
+
 <head>
-    <title>Liste Voie</title>
+
+    <title>404</title>
     <meta charset="utf-8" />
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/topo.css}"/>
+    <link th:href="@{/css/topo.css}" rel="stylesheet"/>
 
 </head>
 <body>
@@ -33,14 +36,16 @@
 
             <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
 
-                <!-- btn espace perso -->
-                <li class="nav-item active" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/intro/topo}">Topos</a>
+                </li>
+                <li class=" nav-item">
+                    <a class="nav-link" th:href="@{/intro/site}">Sites</a>
                 </li>
 
-                <!-- btn topo-->
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
+                <!-- btn espace perso -->
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
                 </li>
 
                 <!-- btn login -->
@@ -53,15 +58,14 @@
                     <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/espace/reservation(id=${user.id})}">Reservations</a>
-                </li>
 
                 <!-- btn logout -->
                 <li class="nav-item " sec:authorize="isAuthenticated()">
                     <form  class="nav-link" th:action="@{/logout}" method="post">
                         <input type="submit" value="Logout"/>
+
                     </form>
+
                 </li>
 
             </ul>
@@ -77,64 +81,21 @@
 </header>
 
 
-
-<!-- Corps de la page -->
+<!-- Contenu -->
 <div class="container">
 
-    <!-- Partie titre -->
+    <!-- Partie hero -->
     <div class="row cadre-title">
-
-        <div class="titre2" >
-            Liste des Voies
+        <div class="titre2">
+            Recherche Echoué
         </div>
-
     </div>
 
-         <!-- liste des Voies  -->
-        <div class="row">
-            <div class="cadreListeSolo">
-                <table class="customers" border="1">
-                    <tr>
-                        <th>Nom</th>
-                        <th>Cotation</th>
-                    </tr>
 
-                    <tr th:each ="voie : ${liste}">
+    <div class="row cadreListeSolo">
 
-                        <td>
-                            <p th:utext="${voie.nom}">...</p>
-                        </td>
-
-                        <td>
-                            <a th:utext="${voie.cotation}" th:href="@{/voie/detail(id=${voie.id})}">...</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-        </div>
-
-
-
-    <!-- btn -->
-    <div class="row ligne-button">
-        <!-- btn Ajout Liste  -->
-        <div class="button-detail">
-            <button type="button" class="btn btn-light">
-
-                <a th:href="@{/voie/ajout(id=${site.id})}"  >Ajout voie   </a>
-            </button>
-        </div>
-
-        <!-- btn Retour Site -->
-        <div class="button-detail">
-            <button type="button" class="btn btn-light">
-                <a th:href="@{/site/detail(id=${site.id})}">Retour Site </a>
-            </button>
-        </div>
-
+      <h1>404 Error not found </h1>
     </div>
-
 
 </div>
 
@@ -154,6 +115,7 @@
         </button>
     </div>
 </div>
+
 
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

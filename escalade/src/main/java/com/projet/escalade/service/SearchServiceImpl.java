@@ -13,8 +13,6 @@ import java.util.List;
 @Service
 public class SearchServiceImpl implements SearchService{
 
-
-
     @Autowired
     private SiteRepository siteRepository;
 
@@ -22,6 +20,7 @@ public class SearchServiceImpl implements SearchService{
     public List<Site> findByNomOrRegion(String name, String region)
     {
         List<Site> sites = siteRepository.findByNomIgnoreCaseOrRegionIgnoreCase(name, region);
+
 
         List<Site> finalSite = new ArrayList<>();
 

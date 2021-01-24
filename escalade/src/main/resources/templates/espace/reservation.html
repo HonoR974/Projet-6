@@ -3,96 +3,99 @@
       xmlns:sec="http://www.w3.org/1999/xhtml"
 >
 
-
 <head>
     <title>Accueil</title>
     <meta charset="utf-8" />
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link th:href="@{/css/main.css}"  rel="stylesheet"/>
+    <link th:href="@{/css/reservation.css}" rel="stylesheet"/>
 
 </head>
 <body>
 
-<!-- menu -->
-<header>
+        <!-- menu -->
+        <header>
 
-    <!-- Menu -->
-    <div class="row">
+            <!-- Menu -->
+            <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
 
-        <nav class=" col navbar navbar-expand-lg navbar-dark bg-dark">
+                <!-- Le logo du menu -->
+                <a class="navbar-brand" th:href="@{/}">
+                    Accueil
+                </a>
 
-            <!-- Le logo du menu -->
-            <a class="navbar-brand" th:href="@{/}">Accueil </a>
+                <!-- btn bascule de navigation -->
+                <button class="navbar-toggler" type="button"
+                        data-toggle="collapse" data-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <!-- btn bascule de navigation -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <!-- liens du menu  -->
+                <div class="collapse navbar-collapse" id="navbarContent">
 
-            <!-- liens du menu  -->
-            <div id="navbarContent" class="collapse navbar-collapse">
-                <ul class="navbar-nav">
+                    <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
 
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/espace/accueil}">Espace Perso</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="nav-link" th:href="@{/security/login}">Login</a>
-                    </li>
-                    <li class="nav-item " sec:authorize="isAnonymous()">
-                        <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/espace/accueil}">Mes Parametres</a>
-                    </li>
-                    <li class="nav-item " sec:authorize="isAuthenticated()">
+                        <!-- btn espace perso -->
+                        <li class="nav-item" sec:authorize="isAuthenticated()">
+                            <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
+                        </li>
 
-                        <form  class="nav-link" th:action="@{/logout}" method="post">
-                            <input type="submit" value="Logout"/>
-                        </form>
-                    </li>
-                </ul>
+                        <!-- btn topo-->
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
+                        </li>
+
+                        <!-- btn login -->
+                        <li class="nav-item" sec:authorize="isAnonymous()">
+                            <a class="nav-link" th:href="@{/security/login}">Login</a>
+                        </li>
+
+                        <!-- btn inscription -->
+                        <li class="nav-item " sec:authorize="isAnonymous()">
+                            <a class="nav-link" th:href="@{/security/registration}">S'inscrire</a>
+                        </li>
+
+                        <!-- Reservation  -->
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/espace/reservation(id=${user.id})}">Reservations</a>
+                        </li>
+
+                        <!-- btn logout -->
+                        <li class="nav-item " sec:authorize="isAuthenticated()">
+                            <form  class="nav-link" th:action="@{/logout}" method="post">
+                                <input type="submit" value="Logout"/>
+                            </form>
+                        </li>
+
+                    </ul>
+
+
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/search/topo}">
+                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Recherche" aria-label="Search">
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Recherche</button>
+                    </form>
+                </div>
+
+            </nav>
+        </header>
+
+    <!-- Contenu -->
+    <div class="container">
+
+        <!-- Titire reservation  accepte -->
+        <div class="row cadre-title">
+            <div class="titre2">
+                Mes Réservations accépté :
             </div>
-
-        </nav>
-    </div>
-
-
-</header>
-
-<!-- Contenu -->
-<div class="container">
-
-    <!-- Partie hero -->
-    <div class="row">
-
-        <div class="col-12 jumbotron">
-            <h2> Bienvenue <h1 sec:authentication="name"></h1> </h2>
         </div>
 
-    </div>
-
-
-    <!-- Partie hero -->
-    <div class="row">
-
-        <div class="col-12 jumbotron">
-            <h2> Mes demandes de reservation </h2>
-        </div>
-
-    </div>
-
-    <!-- reservartion Accepté  -->
-    <div class="row">
-            <table class="detail" border="1">
+        <!-- reservartion Accepté  -->
+        <div class="row cadre-liste">
+            <table class="customers" border="1">
                 <tr>
                     <th>Nom du Topo</th>
                     <th>Message</th>
-                    <th>Retour au propriétaire </th>
+                    <th>Rendre le Topo Réservé  </th>
                 </tr>
 
 
@@ -107,16 +110,64 @@
                     </td>
                     <td>
                         <form th:action="@{/espace/retourReservation(id_res=${reservation.id},
-                                            id_user=${user.id})}"
+                                                id_user=${user.id})}"
                               method="post">
-                            <button type="submit"  >
+                            <button type="submit" class="btn btn-outline-dark">
                                 oui
                             </button>
                         </form>
+                    </td>
 
-                        <button type="button" >
-                            non
-                        </button>
+                </tr>
+            </table>
+        </div>
+
+
+        <!-- Titre demande de reservation  -->
+        <div class="row cadre-title">
+            <div class="titre2">
+               Demande de Reservation :
+            </div>
+        </div>
+
+        <!-- reservartion en attente -->
+        <div class="row cadre-liste">
+            <table class="customers" border="1">
+                <tr>
+                    <th>Nom du Topo</th>
+                    <th>Nom du Demandeur </th>
+                    <th>Message</th>
+                    <th>Choix</th>
+                </tr>
+
+
+                <!-- pour chaque reservation  -->
+                <tr th:each ="reservation : ${listeReservation}">
+                    <td>
+                        <p th:utext="${reservation.getTopo().getNom()}" >...</p>
+                    </td>
+
+                    <td>
+                        <p th:utext="${reservation.getUser().getUsername()}">... </p>
+                    </td>
+                    <td>
+                        <p th:utext="${reservation.message}">...</p>
+                    </td>
+                    <td>
+                        <form th:action="@{/espace/accepteReservation(id=${reservation.id})}"
+                        method="post">
+                            <button type="submit" class="btn btn-outline-dark" >
+                               Accepter
+                            </button>
+                        </form>
+
+                        <form th:action="@{/espace/refuseReservation(id=${reservation.id})}"
+                        method="post">
+                            <button type="submit" class="btn btn-outline-dark">
+                                Refuser
+                            </button>
+                        </form>
+
                     </td>
 
                 </tr>
@@ -126,63 +177,24 @@
 
 
 
+    </div>
 
-
-
-    <!-- Partie titre -->
-    <div class="row">
-
-        <div class="col-12 jumbotron">
-            <h2> les demandes que j'ai recu  </h2>
+        <!-- footer-->
+        <div class="row footerIntro">
+            <div class="col-6" >
+                <p class="copyrigth">Copyright © 2021, All Right Reserved</p>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-outline-light btn-footer">
+                    <a th:href="@{/intro/index}">Home</a>
+                </button>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-outline-light btn-footer">
+                    <a th:href="@{/security/login}">Login</a>
+                </button>
+            </div>
         </div>
-
-    </div>
-
-    <!-- reservartion en attente -->
-    <div class="row">
-        <table class="detail" border="1">
-            <tr>
-                <th>Nom du Topo</th>
-                <th>Nom du Demandeur </th>
-                <th>Message</th>
-                <th>Choix</th>
-            </tr>
-
-
-            <!-- pour chaque reservation  -->
-            <tr th:each ="reservation : ${listeReservation}">
-                <td>
-                    <p th:utext="${reservation.getTopo().getNom()}" >...</p>
-                </td>
-
-                <td>
-                    <p th:utext="${reservation.getUser().getUsername()}">... </p>
-                </td>
-                <td>
-                    <p th:utext="${reservation.message}">...</p>
-                </td>
-                <td>
-                    <form th:action="@{/espace/accepteReservation(id=${reservation.id})}"
-                    method="post">
-                        <button type="submit"  >
-                           oui
-                        </button>
-                    </form>
-
-                    <button type="button" >
-                        non
-                    </button>
-                </td>
-
-            </tr>
-        </table>
-    </div>
-
-
-
-
-</div>
-
 
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

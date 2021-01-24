@@ -80,10 +80,10 @@ public class SiteController {
 
     @RequestMapping(value = "/site/ajout", method = RequestMethod.POST)
     public String ajoutPost(@RequestParam("id")int id_topo,
-            @RequestParam(value = "visible")boolean visible,
-            @RequestParam(value = "region")String region,
-            @RequestParam(value = "nom")String nom,
-            @RequestParam(value = "adresse")String adresse,
+            @RequestParam(value = "visible", required = false)boolean visible ,
+            @RequestParam(value = "region",required = false)String region,
+            @RequestParam(value = "nom",required = false)String nom,
+            @RequestParam(value = "adresse",required = false)String adresse,
             Model model)
     {
 

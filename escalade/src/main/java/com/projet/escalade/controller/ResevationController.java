@@ -3,6 +3,7 @@ package com.projet.escalade.controller;
 import com.projet.escalade.repository.TopoRepository;
 import com.projet.escalade.service.ReservationService;
 import com.projet.escalade.service.SecurityService;
+import com.projet.escalade.service.SiteService;
 import com.projet.escalade.service.TopoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,9 @@ public class ResevationController {
 
     @Autowired
     private TopoService topoService;
+
+    @Autowired
+    private SiteService siteService;
 
     /**
      *
@@ -50,8 +54,8 @@ public class ResevationController {
                               Model model)
     {
         //les topos disponibles
-        model.addAttribute("liste", topoService.getTopoListByVisible());
-
+        model.addAttribute("listeTopo", topoService.getTopoListByVisible());
+        model.addAttribute("listeSite", siteService.getSiteListByVisible());
         //alerte lors de la demande de reservation
         model.addAttribute("envoieDone", reservationService.valideDemande(id_reserv,m));
         return "intro/index";

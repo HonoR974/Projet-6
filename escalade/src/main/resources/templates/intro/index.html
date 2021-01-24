@@ -64,6 +64,7 @@
                         <li class="nav-item " sec:authorize="isAuthenticated()">
                             <form  class="nav-link" th:action="@{/logout}" method="post">
                                 <input type="submit" value="Logout"/>
+
                             </form>
 
                             </li>
@@ -89,6 +90,15 @@
                     <p>Bienvenue <strong sec:authentication="name" ></strong></p>
                 </div>
             </div>
+            <!-- Alerte lorsque l'utilisateur vient d'envoyer une demande de reservation -->
+            <div class="row" th:if="${ envoieDone == true }">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <h5 class="alert-heading">Votre demande de réservation a bien été envoyé  a été énvoyé   </h5>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
 
             <!-- Logo et Presentation text-->
             <div class="row imgAccueil">
@@ -100,21 +110,15 @@
                 <h2>Les amis de l'escalade </h2>
             </div>
 
-
             <!-- txt de presentatin -->
             <div class="row text">
-                <p>Et prima post Osdroenam quam, ut dictum est, ab hac descriptione discrevimus, Commagena, nunc Euphratensis, clementer adsurgit, Hierapoli, vetere Nino et Samosata civitatibus amplis inlustris.</p>
-            </div>
+                <p>Bonjour et bienvenu,  nous sommes une associations qui réunit les passionés d'escalade
+                    dans toute la France.
+                </p>
+                <p> A travers ce site, chaque pationnée peut partager ses informations et echanger
+                    avec la communauté.
+                </p>
 
-
-            <!-- Alerte lorsque l'utilisateur vient d'envoyer une demande de reservation -->
-            <div class="row" th:if="${ envoieDone == true }">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h5 class="alert-heading">Votre demande de réservation a bien été envoyé  a été énvoyé   </h5>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
             </div>
 
             <!-- Titre topo -->
@@ -187,8 +191,20 @@
         </div>
 
         <!-- footer-->
-        <div class="footerIntro">
-            <p>Salut</p>
+        <div class="row footerIntro">
+            <div class="col-6" >
+                <p class="copyrigth">Copyright © 2021, All Right Reserved</p>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-outline-light btn-footer">
+                    <a th:href="@{/intro/index}">Home</a>
+                </button>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-outline-light btn-footer">
+                    <a th:href="@{/security/login}">Login</a>
+                </button>
+            </div>
         </div>
 
 

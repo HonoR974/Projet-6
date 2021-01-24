@@ -20,4 +20,6 @@ public interface ReservationService {
     User getUserProprio(int id_reserv);
 
     void finishReservation(int id_reserv);
+
+    void refuserReservation(int id_reserv);
 }

@@ -1,6 +1,6 @@
 body{
 
-    background-image: url("/image/background5.jpg");
+    background-image: url("/image/background12.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -21,6 +21,7 @@ nav
 
 .container{
     margin-top: 20px;
+    margin-bottom: 20px;
     height: 100%;
     background-color: rgba(240,239,235,0.8);
 }
@@ -89,8 +90,8 @@ nav
 .cadreListeSolo
 {
     width: 100%;
-    height: auto;
-    padding-top: 20px ;
+    height: 600px;
+    padding-top: 20px;
     overflow: auto;
     justify-content: center;
 }
@@ -148,12 +149,60 @@ nav
     margin-top: 25px;
 }
 
+/**---------------------Lignt bn solo**/
+.lign-btnSolo
+{
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(255,241,230,0.8);
+    justify-content: center;
+}
+
+/**----------------------Ligne Button **/
+.ligne-button
+{
+    width: auto;
+    height: 60px;
+    margin: 25px;
+    align-content: center;
+    justify-content: space-evenly;
+}
+
+.button-detail
+{
+    width: auto;
+    justify-content: center;
+}
 
 
 
+/**----------------------- Footer*/
+.footerIntro
+{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(203,153,126,0.9);
+    color: white;
+    text-align: center;
+    margin-left: 0;
 
+}
+.copyrigth
+{
+    font-size: 25px;
+    border-style: groove;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    margin: 25px;
+}
 
-
+.btn-footer
+{
+    font-size: 20px;
+    margin-top: 20px;
+}
 
 
 

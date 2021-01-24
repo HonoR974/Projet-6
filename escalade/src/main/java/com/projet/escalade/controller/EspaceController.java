@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -85,6 +86,30 @@ public class EspaceController {
 
         return "espace/reservation";
     }
+
+
+    //------------- Refuser la reservation ----------------//
+    @PostMapping(value = "/espace/refuseReservation")
+    public String reservationRefuser(@RequestParam(value = "id")int id,
+                                     Model model)
+    {
+        /**
+         * refuser la demande
+         * changer le statut de la resevation
+         */
+        reservationService.refuserReservation(id);
+
+        model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
+
+        //Liste des reservation accepté
+        model.addAttribute("listeAccepte", reservationService.getListReservAcceptByIdUser(userService.getIdUser(securityService.getNameUser())));
+
+        //liste de reservation en attente
+        model.addAttribute("listeReservation", reservationService.getListReservEnAttByIdUser(userService.getIdUser(securityService.getNameUser())));
+
+        return "espace/reservation";
+    }
+
 
 
     //---------- Fin de la Réservation ---------------------//

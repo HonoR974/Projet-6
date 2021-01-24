@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link th:href="@{/css/main.css}"  rel="stylesheet"/>
+    <link th:href="@{/css/espace.css}"  rel="stylesheet"/>
 </head>
 <body>
 
@@ -122,6 +122,22 @@
                 </div>
             </div>
 
+        <!-- footer-->
+        <div class="row footerIntro">
+            <div class="col-6" >
+                <p class="copyrigth">Copyright © 2021, All Right Reserved</p>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-outline-light btn-footer">
+                    <a th:href="@{/intro/index}">Home</a>
+                </button>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-outline-light btn-footer">
+                    <a th:href="@{/security/login}">Login</a>
+                </button>
+            </div>
+        </div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
