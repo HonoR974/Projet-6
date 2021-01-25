@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>Récapitualitif</title>
@@ -80,9 +81,9 @@
 
             <div class="row cadreDetail">
                 <div class="presentation">
-                        <p th:utext="${site.region}">Visibilité </p>
-                        <p th:utext="${site.nom}">Nom</p>
-                        <p th:utext="${site.adresse}">Description</p>
+                        <p>Région : <strong th:utext="${site.region}"></strong> </p>
+                        <p>Nom : <strong th:utext="${site.nom}"></strong></p>
+                        <p >Adresse : <strong th:utext="${site.adresse}"></strong></p>
 
                 </div>
              </div>

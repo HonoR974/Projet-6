@@ -35,13 +35,8 @@
 
                     <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 ">
 
-                        <!-- btn espace perso -->
-                        <li class="nav-item active" sec:authorize="isAuthenticated()">
-                            <a class="nav-link" th:href="@{/espace/accueil}">Mon Espace Perso </a>
-                        </li>
-
                         <!-- btn topo-->
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" th:href="@{/topo/liste(id=${user.id})}">Mes Topos</a>
                         </li>
 
@@ -79,11 +74,11 @@
         </header>
 
         <!-- Contenu -->
-            <div class="container">
+        <div class="container">
 
                 <!-- Partie titre -->
                 <div class="row cadre-title">
-                    <div class="titre2">Les topos de l'utilisateur </div>
+                    <div class="titre2">Mes Topos </div>
                 </div>
 
                 <!-- Les topos de l'utilisateur -->
@@ -120,6 +115,12 @@
                     </table>
                 </div>
                 </div>
+            <!-- bouton ajout Topo -->
+            <div class="row lign-btnSolo">
+                <button type="button" class="btn btn-light">
+                    <a th:href="@{/topo/ajout(id=${user.id})}"  >Ajoute un nouveau topo  </a>
+                </button>
+            </div>
             </div>
 
         <!-- footer-->

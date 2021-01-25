@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Controller de l'espace personnel
+ */
 @Controller
 public class EspaceController {
 
@@ -32,20 +35,31 @@ public class EspaceController {
     private VoieService voieService;
 
 
-    //------------- Espace -----------//
+    /**
+     * Accueil de l'espace personnel de l'utilisateur
+     * @param model model
+     * @return espace/accueil
+     */
     @GetMapping(value = "/espace/accueil")
     public String espaceAccueil(Model model)
     {
+
         model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         model.addAttribute("liste", topoService.getTopoListByIdUser(userService.getIdUser(securityService.getNameUser())));
-
 
         return "espace/accueil";
     }
 
 
-    //-----------Reservation -------/
+
+
+    /**
+     * Espace Reservation
+     * @param id_user id_user
+     * @param model model
+     * @return espace/reservation
+     */
     @GetMapping(value = "/espace/reservation")
     public String reservationGet(@RequestParam(value = "id")int id_user,
                                  Model model)
@@ -62,12 +76,18 @@ public class EspaceController {
     }
 
 
-    //--------------Acceppter la reservation ------------------//
+
+
+    /**
+     * L'utilisateur accepte une demande de reservation
+     * @param id_reserv id_reservation
+     * @param model model
+     * @return espace/reservation
+     */
     @PostMapping(value = "/espace/accepteReservation")
     public String reservationAccepete(@RequestParam(value = "id")int id_reserv,
                                       Model model)
     {
-
 
         /*
         * accepeter la reservation
@@ -89,11 +109,18 @@ public class EspaceController {
 
 
     //------------- Refuser la reservation ----------------//
+
+    /**
+     * L'utilisateur refuse une demande de réservation.
+     * @param id id_reservation
+     * @param model model
+     * @return espace/reservation
+     */
     @PostMapping(value = "/espace/refuseReservation")
     public String reservationRefuser(@RequestParam(value = "id")int id,
                                      Model model)
     {
-        /**
+        /*
          * refuser la demande
          * changer le statut de la resevation
          */
@@ -113,12 +140,21 @@ public class EspaceController {
 
 
     //---------- Fin de la Réservation ---------------------//
+
+    /**
+     * L'utilisateur rend le topo
+     * @param id_reservation id_reservation
+     * @param id_user id_user
+     * @param model model
+     * @return espace/reservation
+     */
     @PostMapping(value = "/espace/retourReservation")
     public String finReservation(@RequestParam(value = "id_res")int id_reservation,
                                  @RequestParam(value = "id_user")int id_user,
                                  Model model)
     {
 
+        //le statut devient "fini" le topo devient visible
         reservationService.finishReservation(id_reservation);
 
         model.addAttribute("user", userService.getUserById(id_user));
@@ -133,6 +169,12 @@ public class EspaceController {
     }
 
 
+    /**
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/espace/topoReserve")
     public String detailTopoReserve(@RequestParam(value = "id")int id,
                                     Model model)

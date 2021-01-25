@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Controller des commentaires
+ */
 @Controller
 public class CommentaireController {
 
     @Autowired
     private SiteService siteService;
-
 
     @Autowired
     private SecurityService securityService;
@@ -26,14 +28,23 @@ public class CommentaireController {
     @Autowired
     private CommentaireService commentaireService;
 
+    /**
+     * Un utilisatuer connecté post un commentaire.
+     * @param id id_site
+     * @param contenu contenu du commentaire
+     * @param model model
+     * @return intro/detailSite
+     */
     @PostMapping(value = "/comment/detailSite")
     public String Comment(@RequestParam(value = "id")int id,
-                                @RequestParam(value = "contenu")String c,
+                                @RequestParam(value = "contenu")String contenu,
                                 Model model)
     {
-        commentaireService.saveComment(id, securityService.getNameUser(), c);
+        //sauvegarde du commentaire
+        commentaireService.saveComment(id, securityService.getNameUser(), contenu);
 
-        //on renvoie ce que lage a besoin
+        // renvoie ce que la page detailSite a besoin
+
         model.addAttribute("site", siteService.getSiteById(id));
         model.addAttribute("liste", siteService.getVoieBySite(id));
         model.addAttribute("topo", siteService.getTopoByIdSite(id));
@@ -43,6 +54,12 @@ public class CommentaireController {
     }
 
 
+    /**
+     * Un membre de l'associtation veut modifier un commentaire.
+     * @param id id_commentaire
+     * @param model model
+     * @return membre/updateComment
+     */
     @GetMapping(value = "/comment/update")
     public String getUpdateComment(@RequestParam(value = "id")int id,
                                 Model model)
@@ -52,14 +69,22 @@ public class CommentaireController {
         return "membre/updateComment";
     }
 
+    /**
+     * Un membre de l'association modifie un commentaire
+     * @param id id_commentaire
+     * @param contenu contenu du nouveau commentaire
+     * @param model model
+     * @return intro/detailSite
+     */
     @PostMapping(value = "/comment/update")
     public String PostUpdateComment(@RequestParam(value = "id")int id,
-                                    @RequestParam(value = "contenu")String c,
+                                    @RequestParam(value = "contenu")String contenu,
                                     Model model)
     {
-        commentaireService.updateComment(id, c);
-        //detail Site ( ite, listeVoie, topo , commentaires , et comm )
+        //modifie le commentaire
+        commentaireService.updateComment(id, contenu);
 
+        //detail Site ( site, listeVoie, topo , commentaires & comm )
 
         model.addAttribute("site", siteService.getSiteById(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("liste", siteService.getVoieBySite(commentaireService.getIdSiteByIdComment(id)));
@@ -70,18 +95,26 @@ public class CommentaireController {
         return "intro/detailSite";
     }
 
+    /**
+     * Un membre de l'association supprimer un commentaire
+     * @param id id_commentaire
+     * @param model model
+     * @return intro/detailSite
+     */
     @PostMapping(value = "/comment/delete")
     public String delete(@RequestParam(value = "id")int id,
                          Model model)
     {
+        //supprimer le commentaire
+        commentaireService.deleteComment(id);
 
+        //detail Site ( site, listeVoie, topo , commentaires & comm )
         model.addAttribute("site", siteService.getSiteById(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("liste", siteService.getVoieBySite(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("topo", siteService.getTopoByIdSite(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("commentaires", siteService.getCommentaireListByIdSite(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("comm", commentaireService.createComment());
 
-        commentaireService.deleteComment(id);
         return "intro/detailSite";
     }
 }

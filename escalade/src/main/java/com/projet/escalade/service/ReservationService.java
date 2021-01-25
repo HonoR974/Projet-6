@@ -5,8 +5,15 @@ import com.projet.escalade.entity.User;
 
 import java.util.List;
 
+
 public interface ReservationService {
 
+    /**
+     *
+     * @param id_topo id_topo
+     * @param name_user username;
+     * @return
+     */
     Reservation creationDemande(int id_topo,String name_user);
 
     boolean valideDemande(int id_reser, String message);

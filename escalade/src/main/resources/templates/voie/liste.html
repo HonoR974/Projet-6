@@ -102,11 +102,11 @@
                     <tr th:each ="voie : ${liste}">
 
                         <td>
-                            <p th:utext="${voie.nom}">...</p>
+                            <a th:utext="${voie.nom}" th:href="@{/voie/detail(id=${voie.id})}">...</a>
                         </td>
 
                         <td>
-                            <a th:utext="${voie.cotation}" th:href="@{/voie/detail(id=${voie.id})}">...</a>
+                            <p th:utext="${voie.cotation}" >...</p>
                         </td>
                     </tr>
                 </table>
