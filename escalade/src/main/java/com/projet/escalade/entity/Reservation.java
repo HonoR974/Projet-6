@@ -2,6 +2,9 @@ package com.projet.escalade.entity;
 
 import javax.persistence.*;
 
+/**
+ * Entity Reservation
+ */
 @Entity
 @Table(name = "reservation")
 public class Reservation {

@@ -9,6 +9,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Validateur de formulaire pour se connecter
+ */
 @Component
 public class UserValidator implements Validator {
     @Autowired

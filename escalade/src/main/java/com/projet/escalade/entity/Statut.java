@@ -3,6 +3,9 @@ package com.projet.escalade.entity;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Entity Statut
+ */
 @Entity
 @Table(name = "statut")
 public class Statut {

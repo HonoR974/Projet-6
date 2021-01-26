@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ * Controller pour la recherche de site
+ */
 @Controller
 public class RechercheController {
 
@@ -17,12 +20,18 @@ public class RechercheController {
         private SearchService searchService;
 
 
-        //-----------Recherche Site -----//
+        /**
+         * Une recherche est effectué
+         * @param search le contenu de la recherche
+         * @param model model
+         * @return si la recherche abouti search/result, sinon search/404
+         *
+         */
         @GetMapping(value = "/search/topo")
-        public String searchTopo(@RequestParam(value = "search")String s,
+        public String searchTopo(@RequestParam(value = "search")String search,
                                  Model model)
         {
-                List<Site> siteList = searchService.findByNomOrRegion(s,s);
+                List<Site> siteList = searchService.findByNomOrRegion(search,search);
 
                 if (siteList.isEmpty())
                 {

@@ -10,12 +10,22 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SearchServiceImpl
+ */
 @Service
 public class SearchServiceImpl implements SearchService{
 
     @Autowired
     private SiteRepository siteRepository;
 
+
+    /**
+     * Effectue une recherche de site  par le nom et la region
+     * @param name nom
+     * @param region region
+     * @return liste de site
+     */
     @Override
     public List<Site> findByNomOrRegion(String name, String region)
     {

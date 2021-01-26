@@ -108,7 +108,6 @@ public class EspaceController {
     }
 
 
-    //------------- Refuser la reservation ----------------//
 
     /**
      * L'utilisateur refuse une demande de réservation.
@@ -137,9 +136,6 @@ public class EspaceController {
         return "espace/reservation";
     }
 
-
-
-    //---------- Fin de la Réservation ---------------------//
 
     /**
      * L'utilisateur rend le topo
@@ -170,44 +166,59 @@ public class EspaceController {
 
 
     /**
-     *
-     * @param id
-     * @param model
-     * @return
+     * L'utilisateur consulte le topo réservé.
+     * @param id id_topo
+     * @param model model
+     * @return espace/reservationTopo
      */
     @GetMapping(value = "/espace/topoReserve")
     public String detailTopoReserve(@RequestParam(value = "id")int id,
                                     Model model)
     {
 
-        model.addAttribute("user", topoService.getUserById(id));
 
-        model.addAttribute("topo", topoService.getTopoByID(id));
+        model.addAttribute("user", topoService.getUserByIdTopo(id));
+
+        model.addAttribute("topo", topoService.getTopoByIdTopo(id));
 
         model.addAttribute("listeSite", topoService.sendSiteByTopo(id));
 
         return "espace/reservationTopo";
     }
 
+
+    /**
+     * L'utilisateur consulte le site contenu dans le topo réservé.
+     * @param id id_site
+     * @param model model
+     * @return espace/reservationSite
+     */
     @GetMapping(value = "/espace/detailSite")
     public String detailSite(@RequestParam(value = "id")int id,
                              Model model)
     {
+        model.addAttribute("user", securityService.getUser());
 
         //pour afficher les infos du site
-        model.addAttribute("site", siteService.getSiteById(id));
+        model.addAttribute("site", siteService.getSiteByIdSite(id));
 
         //pour afficher les voies du site
-        model.addAttribute("listeVoie", siteService.getVoieBySite(id));
+        model.addAttribute("listeVoie", siteService.getVoieByIdSite(id));
 
         return "espace/reservationSite";
     }
 
+    /**
+     * L'utilisateur consulte une voie contenu dans le topo réservé
+     * @param id id_voie
+     * @param model model
+     * @return espace/reservationVoie
+     */
     @GetMapping(value = "/espace/detailVoie")
     public String detailVoie(@RequestParam(value = "id")int id,
                              Model model)
     {
-        model.addAttribute("voie", voieService.getVoieById(id));
+        model.addAttribute("voie", voieService.getVoieByIdVoie(id));
         model.addAttribute("site", voieService.getSiteByIdVoie(id));
         model.addAttribute("user", securityService.getUser());
         return "espace/reservationVoie";

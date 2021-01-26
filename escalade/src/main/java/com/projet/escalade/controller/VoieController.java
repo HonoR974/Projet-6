@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-
+/**
+ * Controller pour les voies
+ */
 @Controller
 public class VoieController {
 
@@ -27,8 +29,12 @@ public class VoieController {
     private UserService userService;
 
 
-
-    //-------------- Liste -------------//
+    /**
+     * La page de la liste des voie contenu dans le site
+     * @param id id_site
+     * @param model model
+     * @return voie/liste
+     */
     @RequestMapping(value = "/voie/liste", method = RequestMethod.GET)
     public String liste(@RequestParam(value = "id")int id,
             Model model)
@@ -43,11 +49,16 @@ public class VoieController {
     }
 
 
-    //-----------Detail -----------//
+    /**
+     * La page detail d'une voie
+     * @param id id_voie
+     * @param model model
+     * @return voie/detail
+     */
     @RequestMapping(value = "/voie/detail", method = RequestMethod.GET)
     public String detail(@RequestParam(value = "id")int id , Model model)
     {
-        model.addAttribute("voie", voieService.getVoieById(id));
+        model.addAttribute("voie", voieService.getVoieByIdVoie(id));
         model.addAttribute("site", voieService.getSiteByIdVoie(id));
         model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
@@ -55,13 +66,18 @@ public class VoieController {
     }
 
 
-    //----------------- Ajout -------------//
+    /**
+     * La page d'ajout d'une voie
+     * @param id id_site
+     * @param model model
+     * @return voie/ajout
+     */
     @RequestMapping(value = "/voie/ajout", method = RequestMethod.GET)
     public String ajoutGet(@RequestParam(value = "id")int id ,
             Model model)
     {
 
-        //je creer une voie
+
         model.addAttribute("voie", voieService.createVoie(id));
         //le site de la voie
         model.addAttribute("site", voieService.getSiteByIdSite(id));
@@ -70,13 +86,21 @@ public class VoieController {
         return "voie/ajout";
     }
 
+    /**
+     * Ajout d'une voie
+     * @param id_site id_site
+     * @param nom nom_voie
+     * @param cota cotation
+     * @param model model
+     * @return voie/recapAdd
+      */
     @RequestMapping(value = "/voie/ajout", method = RequestMethod.POST)
     public String ajoutPost(@RequestParam(value = "id")int id_site,
-                            @RequestParam(value = "nom")String n,
-                            @RequestParam(value = "cotation")String c,
+                            @RequestParam(value = "nom")String nom,
+                            @RequestParam(value = "cotation")String cota,
             Model model)
     {
-        model.addAttribute("voie", voieService.saveVoie(n,c, id_site));
+        model.addAttribute("voie", voieService.saveVoie(nom,cota, id_site));
 
         model.addAttribute("site", voieService.getSiteByIdSite(id_site));
         model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
@@ -85,26 +109,38 @@ public class VoieController {
     }
 
 
-
-    //--------------------- Update ----------------//
+    /**
+     * La page pour modifier une voie
+     * @param id id_voie
+     * @param model model
+     * @return voie/modif
+     */
     @RequestMapping(value = "/voie/modif", method = RequestMethod.GET)
     public String modifGet(@RequestParam(value = "id")int id,
                            Model model)
     {
-        model.addAttribute("voie", voieService.getVoieById(id));
+        model.addAttribute("voie", voieService.getVoieByIdVoie(id));
         model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         return "voie/modif";
     }
 
+    /**
+     * Modification d'une voie
+     * @param id id_voie
+     * @param nom nom_voie
+     * @param cot cotation
+     * @param model model
+     * @return voie/detail
+     */
     @RequestMapping(value = "/voie/modif", method = RequestMethod.POST)
     public String modifPost(@RequestParam(value = "id")int id,
-                           @RequestParam(value = "nom")String n,
-                           @RequestParam(value = "cotation")String c,
+                           @RequestParam(value = "nom")String nom,
+                           @RequestParam(value = "cotation")String cot,
                            Model model)
     {
 
-        model.addAttribute("voie", voieService.updateVoie(id,n,c));;
+        model.addAttribute("voie", voieService.updateVoie(id,nom,cot));;
 
         model.addAttribute("site", voieService.getSiteByIdVoie(id));
         model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
@@ -113,17 +149,27 @@ public class VoieController {
     }
 
 
-
-    //--------------------- Delete -------------------//
+    /**
+     * La page pour supprimer une voie
+     * @param id id_voie
+     * @param model model
+     * @return voie/supprime
+     */
     @RequestMapping(value = "/voie/delete", method = RequestMethod.GET)
     public String deleteGet(@RequestParam(value = "id")int id, Model model)
     {
-        model.addAttribute("voie", voieService.getVoieById(id));
+        model.addAttribute("voie", voieService.getVoieByIdVoie(id));
         model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         return "voie/supprime";
     }
 
+    /**
+     * Suppression d'une voie
+     * @param id id_voie
+     * @param model model
+     * @return voie/liste
+     */
     @RequestMapping(value = "/voie/delete", method = RequestMethod.POST)
     public String deletePost(@RequestParam(value = "id")int id, Model model)
     {

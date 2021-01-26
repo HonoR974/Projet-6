@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * SiteServiceImpl
+ */
 @Service
 public class SiteServiceImpl  implements  SiteService{
 
@@ -22,23 +25,37 @@ public class SiteServiceImpl  implements  SiteService{
     private TopoRepository topoRepository;
 
 
-
+    /**
+     * Return une liste de site par l'id du topo
+     * @param id_topo id_topo
+     * @return liste de site
+     */
     @Override
-    public List<Site> getSiteListByIdTop(int id_topo)
+    public List<Site> getSiteListByIdTopo(int id_topo)
     {
         Topo t = topoRepository.findById(id_topo);
 
         return  siteRepository.findByTopo(t);
     }
 
+    /**
+     * Return une liste de site
+     * <p>Tout les sites qui sont visible </p>
+     * @return liste de site
+     */
     @Override
     public List<Site> getSiteListByVisible()
     {
            return siteRepository.findByVisible(true);
     }
 
+    /**
+     * Return les voie appartenant au site
+     * @param id id_site
+     * @return liste de voie
+     */
     @Override
-    public List<Voie> getVoieBySite(int id)
+    public List<Voie> getVoieByIdSite(int id)
     {
         Site s = siteRepository.findById(id);
 
@@ -46,40 +63,42 @@ public class SiteServiceImpl  implements  SiteService{
     }
 
 
+    /**
+     * Return un site par son id
+     * @param id id_site
+     * @return site
+     */
     @Override
-    public  List<Commentaire> getCommentaireListByIdSite(int id)
-    {
-        Site s = siteRepository.findById(id);
-        return s.getCommentaires();
-    }
-
-    @Override
-    public Site getSiteById(int id)
+    public Site getSiteByIdSite(int id)
     {
         return siteRepository.findById(id);
     }
 
-
+    /**
+     * Creation d'un site
+     * @return site
+     */
     @Override
     public Site createSite( )
     {
-        Site s = new Site();
-        return s;
+
+        return new Site();
     }
 
-    //en fournissant l'id du topo
-    @Override
-    public Topo getTopoByIdTopo(int id)
-    {
-        Topo t = topoRepository.findById(id);
 
-        return t;
-    }
-
+    /**
+     * Sauvegarde un site sur un topo
+     * @param id_topo id_topo
+     * @param visible visible
+     * @param region region
+     * @param nom nom
+     * @param adr adresse
+     * @return site
+     */
     @Override
-    public Site saveSite(int id_topo, boolean visible, String r, String n, String a)
+    public Site saveSite(int id_topo, boolean visible, String region, String nom, String adr)
     {
-        Site s = new Site(r,n,a);
+        Site s = new Site(region,nom,adr);
 
         Topo t = topoRepository.findById(id_topo);
         s.setVisible(visible);
@@ -90,21 +109,71 @@ public class SiteServiceImpl  implements  SiteService{
         return s;
     }
 
+    /**
+     * Modifie un site
+     * @param id id_site
+     * @param visible visible
+     * @param region region
+     * @param nom nom
+     * @param ad adresse
+     * @return site
+     */
     @Override
-    public Site updateSite(int id, boolean visible, String r, String n, String a)
+    public Site updateSite(int id, boolean visible, String region , String nom, String ad)
     {
         Site s = siteRepository.findById(id);
         s.setVisible(visible);
-        s.setRegion(r);
-        s.setNom(n);
-        s.setAdresse(a);
+        s.setRegion(region);
+        s.setNom(nom);
+        s.setAdresse(ad);
 
         siteRepository.save(s);
 
         return s;
     }
 
+    /**
+     * Return un topo par son id
+     * @param id id_topo
+     * @return
+     */
+    @Override
+    public Topo getTopoByIdTopo(int id)
+    {
 
+        return  topoRepository.findById(id);
+    }
+
+
+    /**
+     * return un topo par l'id d'un site
+     * @param id id_site
+     * @return topo
+     */
+    @Override
+    public Topo getTopoByIdSite(int id)
+    {
+        Site s = siteRepository.findById(id);
+        return s.getTopo();
+    }
+
+    /**
+     * Return une liste de commentaire par l'id d'un site
+     * @param id id_site
+     * @return liste de commentaire
+     */
+    @Override
+    public  List<Commentaire> getCommentaireListByIdSite(int id)
+    {
+        Site s = siteRepository.findById(id);
+        return s.getCommentaires();
+    }
+
+
+    /**
+     * Suppression d'un site par son id
+     * @param id id_site
+     */
     @Override
     public void deleteById(int id)
     {
@@ -113,27 +182,25 @@ public class SiteServiceImpl  implements  SiteService{
     }
 
 
-
+    /**
+     * Return l'id d'un topo par l'id d'un site
+     * @param id id_site
+     * @return id_topo
+     */
     @Override
     public int getIdTopoByIdSite(int id)
     {
         Site s = siteRepository.findById(id);
-
         Topo t = s.getTopo();
 
-        int id_topo = t.getId();
-
-        return id_topo;
+        return t.getId();
     }
 
-    @Override
-    public Topo getTopoByIdSite(int id)
-    {
-        Site s = siteRepository.findById(id);
-        Topo t = s.getTopo();
-        return t;
-    }
 
+    /**
+     * Un admin tague un site
+     * @param id id_site
+     */
     @Override
     public void tagSite(int id)
     {

@@ -102,7 +102,7 @@
         <!-- btn liste -->
         <div class="col">
             <button type="button" class="btn btn-light">
-                <a th:href="@{/site/liste}"  >Liste des Sites  </a>
+                <a th:href="@{/site/liste(id=${site.getTopo().getId()})}"  >Liste des Sites  </a>
 
             </button>
         </div>

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+/**
+ * CommentaireServiceImpl
+ */
 @Service
 public class CommentaireServiceImpl implements CommentaireService {
 
@@ -24,16 +26,75 @@ public class CommentaireServiceImpl implements CommentaireService {
     private UserService userService;
 
     /**
-     *
-     * La creation du commentaire
-     * <p>on recupere l'user ainsi que le site et plein d'autre chose </p>
-     * @param id_site id site
-     * @param name_user name user
-     * @param contenu contenu
-     *
+     * Creer un commentaire
+     * @return le commentaire crée
      */
     @Override
-   public void saveComment(int id_site, String  name_user, String contenu)
+    public Commentaire createComment()
+    {
+        return new Commentaire();
+    }
+
+    /**
+     * Return un commentaire par son id
+     * @param id id_commentaire
+     * @return commentaire
+     */
+    @Override
+    public Commentaire getCommentById(int id)
+    {
+        return commentaireRepository.findById(id);
+    }
+
+    /**
+     * Return l'id d'un site par l'id d'un commentaire
+     * @param id id_site
+     * @return id_site
+     */
+    @Override
+    public int getIdSiteByIdComment(int id)
+    {
+        Commentaire c = commentaireRepository.findById(id);
+        Site s = c.getSite();
+        return s.getId();
+    }
+
+
+    /**
+     * Modifie le contenu du commentaire
+     * @param id id_commentaire
+     * @param contenu cotenu
+     */
+    @Override
+    public void updateComment(int id, String contenu)
+    {
+        Commentaire c = commentaireRepository.findById(id);
+        c.setContenu(contenu);
+        commentaireRepository.save(c);
+
+    }
+
+    /**
+     * Supprime un commentaire
+     * @param id id_commentaire
+     */
+    @Override
+    public void deleteComment(int id)
+    {
+        Commentaire c = commentaireRepository.findById(id);
+        commentaireRepository.delete(c);
+
+    }
+
+
+    /**
+     * Sauvegarde un commentaire d'un utilisateur sur un site
+     * @param id_site id_site
+     * @param name_user username
+     * @param contenu contenu
+     */
+    @Override
+    public void saveComment(int id_site, String  name_user, String contenu)
     {
         User u = userService.findByUsername(name_user);
         Site s = siteRepository.findById(id_site);
@@ -52,43 +113,5 @@ public class CommentaireServiceImpl implements CommentaireService {
 
     }
 
-    @Override
-    public Commentaire createComment()
-    {
-        Commentaire c = new Commentaire();
-        return c;
-    }
-
-    @Override
-    public Commentaire getCommentById(int id)
-    {
-        return commentaireRepository.findById(id);
-    }
-
-
-    @Override
-    public void updateComment(int id, String contenu)
-    {
-        Commentaire c = commentaireRepository.findById(id);
-        c.setContenu(contenu);
-        commentaireRepository.save(c);
-
-    }
-
-    @Override
-    public int getIdSiteByIdComment(int id)
-    {
-        Commentaire c = commentaireRepository.findById(id);
-        Site s = c.getSite();
-        return s.getId();
-    }
-
-    @Override
-    public void deleteComment(int id)
-    {
-        Commentaire c = commentaireRepository.findById(id);
-        commentaireRepository.delete(c);
-
-    }
 
 }

@@ -3,6 +3,9 @@ package com.projet.escalade.entity;
 
 import javax.persistence.*;
 
+/**
+ * Entity voie
+ */
 @Entity
 @Table(name = "voie")
 public class Voie {

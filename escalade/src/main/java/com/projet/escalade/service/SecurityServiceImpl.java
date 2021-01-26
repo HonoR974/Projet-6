@@ -28,6 +28,11 @@ public class SecurityServiceImpl implements SecurityService{
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
+    /**
+     * Return true si l'user est conecté
+     * @return boolean
+     */
+    @Override
     public boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || AnonymousAuthenticationToken.class.
@@ -37,6 +42,13 @@ public class SecurityServiceImpl implements SecurityService{
         return authentication.isAuthenticated();
     }
 
+    /**
+     * L'utilisateur se connecte
+     * <p>la recherche est effectué par son pseudo et son mdp est vérifié </p>
+     *
+     * @param username usernae
+     * @param password mdp
+     */
     @Override
     public void autoLogin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -50,6 +62,10 @@ public class SecurityServiceImpl implements SecurityService{
         }
     }
 
+    /**
+     * Return le nom de l'user connecté
+     * @return name
+     */
     @Override
     public String getNameUser()
     {
@@ -57,6 +73,10 @@ public class SecurityServiceImpl implements SecurityService{
         return authentication.getName();
     }
 
+    /**
+     * Return l'user connecté
+     * @return user
+     */
     @Override
     public User getUser()
     {

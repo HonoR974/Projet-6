@@ -31,7 +31,7 @@ public class CommentaireController {
     /**
      * Un utilisatuer connecté post un commentaire.
      * @param id id_site
-     * @param contenu contenu du commentaire
+     * @param contenu - contenu du commentaire
      * @param model model
      * @return intro/detailSite
      */
@@ -45,8 +45,8 @@ public class CommentaireController {
 
         // renvoie ce que la page detailSite a besoin
 
-        model.addAttribute("site", siteService.getSiteById(id));
-        model.addAttribute("liste", siteService.getVoieBySite(id));
+        model.addAttribute("site", siteService.getSiteByIdSite(id));
+        model.addAttribute("liste", siteService.getVoieByIdSite(id));
         model.addAttribute("topo", siteService.getTopoByIdSite(id));
         model.addAttribute("commentaires", siteService.getCommentaireListByIdSite(id));
         model.addAttribute("comm", commentaireService.createComment());
@@ -86,8 +86,8 @@ public class CommentaireController {
 
         //detail Site ( site, listeVoie, topo , commentaires & comm )
 
-        model.addAttribute("site", siteService.getSiteById(commentaireService.getIdSiteByIdComment(id)));
-        model.addAttribute("liste", siteService.getVoieBySite(commentaireService.getIdSiteByIdComment(id)));
+        model.addAttribute("site", siteService.getSiteByIdSite(commentaireService.getIdSiteByIdComment(id)));
+        model.addAttribute("liste", siteService.getVoieByIdSite(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("topo", siteService.getTopoByIdSite(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("commentaires", siteService.getCommentaireListByIdSite(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("comm", commentaireService.createComment());
@@ -109,8 +109,8 @@ public class CommentaireController {
         commentaireService.deleteComment(id);
 
         //detail Site ( site, listeVoie, topo , commentaires & comm )
-        model.addAttribute("site", siteService.getSiteById(commentaireService.getIdSiteByIdComment(id)));
-        model.addAttribute("liste", siteService.getVoieBySite(commentaireService.getIdSiteByIdComment(id)));
+        model.addAttribute("site", siteService.getSiteByIdSite(commentaireService.getIdSiteByIdComment(id)));
+        model.addAttribute("liste", siteService.getVoieByIdSite(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("topo", siteService.getTopoByIdSite(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("commentaires", siteService.getCommentaireListByIdSite(commentaireService.getIdSiteByIdComment(id)));
         model.addAttribute("comm", commentaireService.createComment());

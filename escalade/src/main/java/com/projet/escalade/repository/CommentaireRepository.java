@@ -7,11 +7,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository des commentaires
+ */
 @Repository
 public interface CommentaireRepository  extends JpaRepository<Commentaire, Integer> {
 
-    List<Commentaire> findBySite(Site site);
 
+    /**
+     * Trouve un commentaire par son id
+     * @param id id_commentaire
+     * @return commentaire
+     */
     Commentaire findById(int id);
 
 }

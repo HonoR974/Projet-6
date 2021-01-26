@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Entity user
+ */
 @Entity
 @Table(name = "user")
 public class User {

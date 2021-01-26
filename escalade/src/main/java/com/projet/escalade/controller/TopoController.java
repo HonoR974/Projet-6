@@ -17,6 +17,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Controller pour les topos
+ */
 @Controller
 public class TopoController {
 
@@ -30,9 +33,12 @@ public class TopoController {
     @Autowired
     private UserService userService;
 
-    //-------------   Liste  --------------//
-    // Besoin de ( listeTopo & user )
-
+    /**
+     * Liste des topos de l'utilisateur
+      * @param id_user id_user
+     * @param model model
+     * @return topo/liste
+     */
     @RequestMapping(value = "/topo/liste", method = RequestMethod.GET)
     public String topoListe(@RequestParam(value = "id")int id_user,
             Model model)
@@ -44,8 +50,12 @@ public class TopoController {
     }
 
 
-
-    //------------ Ajout Topo  --------------//
+    /**
+     * La page pour l'ajout d'un topo
+     * @param id_user id_user
+     * @param model model
+     * @return topo/ajout
+     */
     @RequestMapping(value = "/topo/ajout", method = RequestMethod.GET)
     public String topoAjoutGet(@RequestParam(value = "id")int id_user,
                     Model model)
@@ -56,6 +66,16 @@ public class TopoController {
         return "topo/ajout";
     }
 
+    /**
+     * Ajout d'un topo
+     * @param id id_topo
+     * @param visible visibilité
+     * @param nom nom_topo
+     * @param description description_topo
+     * @param date date_topo
+     * @param model model
+     * @return topoo/recapAdd
+     */
     @RequestMapping(value = "/topo/ajout", method = RequestMethod.POST)
     public String topoAjoutPost(@RequestParam(value = "id")int id,
                                 @RequestParam(value = "visible",required = false)boolean visible,
@@ -67,17 +87,21 @@ public class TopoController {
     {
 
         model.addAttribute("topo", topoService.saveTopo(id,visible,nom,description,date));
-        model.addAttribute("user", topoService.getUserById(id));
+        model.addAttribute("user", topoService.getUserByIdTopo(id));
         return "topo/recapAdd";
     }
 
 
-    //------------- detail ------//
-    // Besoin : ( Topo , User , ListeSite )
+    /**
+     * La page detail d'un topo
+     * @param id id_topo
+     * @param model model
+     * @return topo/detail
+     */
     @RequestMapping(value = "/topo/detail", method = RequestMethod.GET)
     public String detail(@RequestParam(value = "id")int id, Model model)
     {
-        model.addAttribute("user", topoService.getUserById(id));
+        model.addAttribute("user", topoService.getUserByIdTopo(id));
 
         model.addAttribute("topo", topoService.getTopoByID(id));
 
@@ -87,8 +111,12 @@ public class TopoController {
     }
 
 
-
-    //------------------ modification ------------//
+    /**
+     * La page pour modifier un topo
+     * @param id id_topo
+     * @param model model
+     * @return topo/modif
+     */
     @RequestMapping(value = "/topo/modif",method = RequestMethod.GET)
     public String modifGet(@RequestParam(value = "id")int id, Model model)
     {
@@ -98,23 +126,36 @@ public class TopoController {
         return "topo/modif";
     }
 
-
+    /**
+     * Modification du topo
+     * @param id id_topo
+     * @param visible visible
+     * @param nom nom_topo
+     * @param des description
+     * @param model model
+     * @return topo/detail
+     */
     @RequestMapping(value = "/topo/modif",method = RequestMethod.POST)
     public String modifPost(@RequestParam(value = "id")int id,
-                            @RequestParam(value = "visible",required = false)boolean v,
-                            @RequestParam(value = "nom", required = false)String n,
-                            @RequestParam(value = "description", required = false)String d,
+                            @RequestParam(value = "visible",required = false)boolean visible,
+                            @RequestParam(value = "nom", required = false)String nom,
+                            @RequestParam(value = "description", required = false)String des,
                             Model model)
     {
-        model.addAttribute("topo", topoService.updateTopo(id,v,n,d));
+        model.addAttribute("topo", topoService.updateTopo(id,visible,nom,des));
 
-        model.addAttribute("user", topoService.getUserById(id));
+        model.addAttribute("user", topoService.getUserByIdTopo(id));
         model.addAttribute("listeSite", topoService.sendSiteByTopo(id));
 
         return "topo/detail";
     }
 
-    //-----------------------  Delete ---------------//
+    /**
+     * La page pur supprimer un topo
+     * @param id id_topo
+     * @param model model
+     * @return topo/supprime
+     */
     @RequestMapping(value = "/topo/supprime",method = RequestMethod.GET)
     public String supprGet(@RequestParam(value = "id")int id, Model model)
     {
@@ -124,10 +165,16 @@ public class TopoController {
         return "topo/supprime";
     }
 
+    /**
+     * Suppression d'un topo
+     * @param id id_topo
+     * @param model model
+     * @return topo/liste
+     */
     @RequestMapping(value = "/topo/supprime",method = RequestMethod.POST)
     public String supprPost(@RequestParam(value = "id")int id, Model model)
     {
-        User u = topoService.getUserById(id);
+        User u = topoService.getUserByIdTopo(id);
 
 
         topoService.deleteById(id);

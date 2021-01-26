@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * UserDetailsServiceImpl
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 
@@ -22,6 +25,11 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Un user se connecte par son username
+     * @param username username
+     * @return UserDetails
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {

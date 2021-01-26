@@ -3,6 +3,9 @@ package com.projet.escalade.entity;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Entity Role
+ */
 @Entity
 @Table(name = "role")
 public class Role {
