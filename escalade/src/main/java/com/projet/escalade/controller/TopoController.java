@@ -103,7 +103,7 @@ public class TopoController {
     {
         model.addAttribute("user", topoService.getUserByIdTopo(id));
 
-        model.addAttribute("topo", topoService.getTopoByID(id));
+        model.addAttribute("topo", topoService.getTopoByIdTopo(id));
 
          model.addAttribute("listeSite", topoService.sendSiteByTopo(id));
 
@@ -120,7 +120,7 @@ public class TopoController {
     @RequestMapping(value = "/topo/modif",method = RequestMethod.GET)
     public String modifGet(@RequestParam(value = "id")int id, Model model)
     {
-        model.addAttribute("topo", topoService.getTopoByID(id));
+        model.addAttribute("topo", topoService.getTopoByIdTopo(id));
         model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         return "topo/modif";
@@ -159,7 +159,7 @@ public class TopoController {
     @RequestMapping(value = "/topo/supprime",method = RequestMethod.GET)
     public String supprGet(@RequestParam(value = "id")int id, Model model)
     {
-        model.addAttribute("topo", topoService.getTopoByID(id));
+        model.addAttribute("topo", topoService.getTopoByIdTopo(id));
         model.addAttribute("user", userService.findByUsername(securityService.getNameUser()));
 
         return "topo/supprime";

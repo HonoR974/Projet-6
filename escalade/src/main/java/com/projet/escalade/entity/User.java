@@ -18,6 +18,8 @@ public class User {
 
     private String password;
 
+    private String email;
+
     @Transient
     private String passwordConfirm;
 
@@ -50,6 +52,13 @@ public class User {
                 '}';
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public List<Topo> getTopos() {
         return topos;
