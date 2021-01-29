@@ -1,4 +1,4 @@
-package com.projet.escalade.service;
+package com.projet.escalade.config;
 
 import com.projet.escalade.entity.Role;
 import com.projet.escalade.entity.User;

@@ -98,6 +98,7 @@
             <div class="presentation">
                 <p>Nom : <strong th:utext="${topo.nom}"></strong></p>
                 <p>Propriétaire : <strong th:utext="${topo.getUser().getUsername()}"></strong></p>
+                <p>Email : <strong th:utext="${topo.getUser().getEmail()}"></strong></p>
                 <p>Date de création : <strong th:utext="${#dates.format(topo.date_creation, 'dd-MM-yyyy')}"></strong></p>
                 <p>Description : </p>
                 <p th:utext="${topo.description}"></p>

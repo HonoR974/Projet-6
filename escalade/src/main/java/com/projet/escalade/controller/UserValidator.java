@@ -9,6 +9,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Validateur de formulaire pour se connecter
  */
@@ -16,6 +19,11 @@ import org.springframework.validation.Validator;
 public class UserValidator implements Validator {
     @Autowired
     private UserService userService;
+
+    private Pattern pattern;
+    private Matcher matcher;
+
+    private static final String EMAIL_PATTERN ="^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -26,7 +34,9 @@ public class UserValidator implements Validator {
     public void validate(Object o, Errors errors) {
         User user = (User) o;
 
+        //Username
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
+
         if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
             errors.rejectValue("username", "Size.userForm.username");
         }
@@ -34,6 +44,18 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
 
+        //Email
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"email", "NotEmpty");
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(user.getEmail());
+        //si l'email n'est pas valide
+        if (!matcher.matches())
+        {
+            errors.rejectValue("email", "Email.validation.regex");
+        }
+
+
+        //Password
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
@@ -42,5 +64,7 @@ public class UserValidator implements Validator {
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }
+
+
     }
 }
